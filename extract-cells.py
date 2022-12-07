@@ -30,14 +30,39 @@ def getLines(img, binaryImg, x):
     
     return verticalLinesImg, horizontalLinesImg
 
-
 def getIntersections(pixels):
-    intersections = []
+    intersections = {}
     for i in range(pixels.shape[0]):
         for j in range(pixels.shape[1]):
             if pixels[i][j] != 0:
-                intersections.append((i, j))
-    return intersections
+                if i in intersections:
+                    intersections[i].append((i, j))
+                else:
+                    intersections[i] = []
+                    intersections[i].append((i, j))
+    
+    keys = list(intersections.keys())
+    uniqueKeys = []
+    uniqueKeys.append(keys[0])
+    for i in range(1, len(keys), 1):
+        if (keys[i] - keys[i - 1] > 5):
+            uniqueKeys.append(keys[i])
+    
+    rows = []
+    for i in uniqueKeys:
+        rows.append(intersections[i])
+                
+    finalIntersections = []
+    index = 0
+    for row in rows:
+        finalIntersections.append([])
+        finalIntersections[index].append(row[0])
+        for i in range(1, len(row), 1):
+            if (row[i][1] - row[i - 1][1] > 5):
+                finalIntersections[index].append(row[i])
+        index += 1
+    
+    return finalIntersections
 
 
 def houghLines(img, type):
@@ -63,14 +88,13 @@ def run(imgPath):
     (thresh, binaryImg) = cv.threshold(img, 128, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)
     binaryImg = 255 - binaryImg
 
-    verticalLinesImg, horizontalLinesImg = getLines(img, binaryImg, x = 7)
+    verticalLinesImg, horizontalLinesImg = getLines(img, binaryImg, x = 10)
     
     verticalLinesImg = houghLines(verticalLinesImg, "vertical")
     horizontalLinesImg = houghLines(horizontalLinesImg, "horizontal")
 
     return verticalLinesImg, horizontalLinesImg, cv.bitwise_and(verticalLinesImg, horizontalLinesImg)
-
-
+    
 def runGetIntersections():
     mypath = "SingleInput"
     intersections = "Intersections/"
@@ -79,6 +103,8 @@ def runGetIntersections():
     files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for fileName in files:
         vertical, horizontal, result_image = run(mypath + "/" + fileName)
+        positions = getIntersections(result_image)
+        print(positions)
         cv.imwrite(verticalLines + fileName, vertical)
         cv.imwrite(horizontalLines + fileName, horizontal)
         cv.imwrite(intersections + fileName, result_image)
