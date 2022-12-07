@@ -93,24 +93,40 @@ def runGetIntersections(imgPath):
     verticalLinesImg = houghLines(verticalLinesImg, "vertical")
     horizontalLinesImg = houghLines(horizontalLinesImg, "horizontal")
 
-    return verticalLinesImg, horizontalLinesImg, cv.bitwise_and(verticalLinesImg, horizontalLinesImg)
+    return binaryImg, verticalLinesImg, horizontalLinesImg, cv.bitwise_and(verticalLinesImg, horizontalLinesImg)
     
-def runGetCells(intersections):
-    print("TODO")
+def runGetCells(img, intersections):
+    cells = {}
+    intersections = np.array(intersections)
+    for col in range(intersections.shape[1] - 1):
+        cells[col] = []
+        for row in range(intersections.shape[0] - 1):
+            x_min = intersections[row][col][0]
+            x_max = intersections[row + 1][col][0]
+            y_min = intersections[row][col][1]
+            y_max = intersections[row][col + 1][1]
+            cell = img[x_min:x_max, y_min:y_max]
+            cells[col].append(cell)
+    labels = ["Cells/Code/", "Cells/StudentName/", "Cells/EnglishName/", "Cells/1/", "Cells/2/", "Cells/3/"]
+    for key in list(cells.keys()):
+        for i in range(len(cells[key])):
+            cv.imwrite(labels[key] + str(i) + ".jpg", cells[key][i])
         
 def run():
     mypath = "SingleInput"
     intersections = "Intersections/"
     verticalLines = "verticalLines/"
     horizontalLines = "horizontalLines/"
+    binaryImgs = "binaryImgs/"
     files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for fileName in files:
-        vertical, horizontal, result_image = runGetIntersections(mypath + "/" + fileName)
+        img, vertical, horizontal, result_image = runGetIntersections(mypath + "/" + fileName)
         positions = getIntersections(result_image)
-        runGetCells(positions)
+        runGetCells(img, positions)
         cv.imwrite(verticalLines + fileName, vertical)
         cv.imwrite(horizontalLines + fileName, horizontal)
         cv.imwrite(intersections + fileName, result_image)
+        cv.imwrite(binaryImgs + fileName, img)
         
 
 def deleteFiles():
