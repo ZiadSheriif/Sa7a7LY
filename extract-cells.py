@@ -101,10 +101,10 @@ def runGetCells(img, intersections):
     for col in range(intersections.shape[1] - 1):
         cells[col] = []
         for row in range(intersections.shape[0] - 1):
-            x_min = intersections[row][col][0] + 12
-            x_max = intersections[row + 1][col][0] - 5
-            y_min = intersections[row][col][1] + 12
-            y_max = intersections[row][col + 1][1] - 5
+            x_min = intersections[row][col][0]
+            x_max = intersections[row + 1][col][0]
+            y_min = intersections[row][col][1]
+            y_max = intersections[row][col + 1][1]
             cell = img[x_min:x_max, y_min:y_max]
             cells[col].append(cell)
             
