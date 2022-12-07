@@ -81,7 +81,7 @@ def houghLines(img, type):
     return hough_lines_out
 
 
-def run(imgPath):
+def runGetIntersections(imgPath):
     img = cv.imread(imgPath, 0)
 
     # thresholding
@@ -95,19 +95,23 @@ def run(imgPath):
 
     return verticalLinesImg, horizontalLinesImg, cv.bitwise_and(verticalLinesImg, horizontalLinesImg)
     
-def runGetIntersections():
+def runGetCells(intersections):
+    print("TODO")
+        
+def run():
     mypath = "SingleInput"
     intersections = "Intersections/"
     verticalLines = "verticalLines/"
     horizontalLines = "horizontalLines/"
     files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for fileName in files:
-        vertical, horizontal, result_image = run(mypath + "/" + fileName)
+        vertical, horizontal, result_image = runGetIntersections(mypath + "/" + fileName)
         positions = getIntersections(result_image)
-        print(positions)
+        runGetCells(positions)
         cv.imwrite(verticalLines + fileName, vertical)
         cv.imwrite(horizontalLines + fileName, horizontal)
         cv.imwrite(intersections + fileName, result_image)
+        
 
 def deleteFiles():
     files = glob.glob('Intersections/')
@@ -120,4 +124,10 @@ def deleteFiles():
     for file in files:
         os.remove(file)
 
-runGetIntersections()
+run()
+
+# CROP IMAGE
+# img = cv2.imread("lenna.png")
+# crop_img = img[y:y+h, x:x+w]
+# cv2.imshow("cropped", crop_img)
+# cv2.waitKey(0)
