@@ -98,6 +98,8 @@ def runGetIntersections(imgPath):
 def runGetCells(img, intersections):
     cells = {}
     intersections = np.array(intersections)
+    height = img.shape[0]
+    width = img.shape[1]
     for col in range(intersections.shape[1] - 1):
         cells[col] = []
         for row in range(intersections.shape[0] - 1):
@@ -106,6 +108,10 @@ def runGetCells(img, intersections):
             y_min = intersections[row][col][1]
             y_max = intersections[row][col + 1][1]
             cell = img[x_min:x_max, y_min:y_max]
+            cell[0:10, 0:width] = 0
+            cell[-10:height, 0:width] = 0
+            cell[0:height, 0:12] = 0
+            cell[0:height, -5:width] = 0
             cells[col].append(cell)
             
     labels = ["Cells/Code/", "Cells/StudentName/", "Cells/EnglishName/", "Cells/1/", "Cells/2/", "Cells/3/"]
