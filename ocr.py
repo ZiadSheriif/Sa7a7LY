@@ -9,6 +9,7 @@ def ocr(dir, langSelected):
 
     # if it doesn't work :
     # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR.\tesseract.exe'
+    result=[]
 
     for filename in os.scandir(dir):
         try:
@@ -19,11 +20,11 @@ def ocr(dir, langSelected):
             if(langSelected == 'ara'):
                 arabicText = get_display(res)
                 res = arabic_reshaper.reshape(arabicText)
-
-            print(res)
+            result.append(res)
+            # print(res)
         except Exception:
             print("Error!")
-
+    return result
     # print(pytesseract.image_to_string(filename.path))
     # ocrEnglish("Cells\EnglishName")
     # ocrEnglish("Cells\Code")

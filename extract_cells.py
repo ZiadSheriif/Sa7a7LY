@@ -8,6 +8,8 @@ import glob
 import os
 from os.path import isfile, join
 from ocr import ocr
+import xlwt
+from xlwt import Workbook
 # from utils.commonfunctions import *
 mpl.rcParams['image.cmap'] = 'gray'
 
@@ -182,8 +184,22 @@ def run():
 
 run()
 # test code
-ocr(Code, 'eng')
+codes = ocr(Code, 'eng')
 # test EnglishName
-ocr(EnglishName, 'eng')
+englishNames = ocr(EnglishName, 'eng')
 # test Arabic Name
-ocr(StudentName, 'ara')
+arabicNames = ocr(StudentName, 'ara')
+
+
+# create excel sheet
+wb = Workbook()
+AutoFiller = wb.add_sheet('AutoFiller')
+AutoFiller.write(0, 0, 'Code')
+AutoFiller.write(0, 1, 'StudentName')
+AutoFiller.write(0, 2, 'EnglishName')
+for index in range(1, len(codes)):
+    AutoFiller.write(index, 0, codes[index])
+    AutoFiller.write(index, 1, arabicNames[index][::-1])
+    AutoFiller.write(index, 2, englishNames[index])
+
+wb.save('autoFiller.xls')
