@@ -144,6 +144,35 @@ def run():
     verticalLines = "verticalLines/"
     horizontalLines = "horizontalLines/"
     binaryImgs = "binaryImgs/"
+    Cells = "Cells/"
+    EnglishName = "Cells/EnglishName/"
+    Code = "Cells/Code/"
+    StudentName = "Cells/StudentName/"
+    Symbol_1, Symbol_2, Symbol_3 = "Cells/1", "Cells/2", "Cells/3"
+    if(not os.path.exists(verticalLines)):
+        os.makedirs(verticalLines)
+    if(not os.path.exists(horizontalLines)):
+        os.makedirs(horizontalLines)
+    if(not os.path.exists(intersections)):
+        os.makedirs(intersections)
+    if(not os.path.exists(binaryImgs)):
+        os.makedirs(binaryImgs)
+    if(not os.path.exists(binaryImgs)):
+        os.makedirs(binaryImgs)
+    if(not os.path.exists(Cells)):
+        os.makedirs(Cells)
+    if(not os.path.exists(EnglishName)):
+        os.makedirs(EnglishName)
+    if(not os.path.exists(Code)):
+        os.makedirs(Code)
+    if(not os.path.exists(StudentName)):
+        os.makedirs(StudentName)
+    if(not os.path.exists(Symbol_1)):
+        os.makedirs(Symbol_1)
+    if(not os.path.exists(Symbol_2)):
+        os.makedirs(Symbol_2)
+    if(not os.path.exists(Symbol_3)):
+        os.makedirs(Symbol_3)
     files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for fileName in files:
         img, vertical, horizontal, result_image = runGetIntersections(
