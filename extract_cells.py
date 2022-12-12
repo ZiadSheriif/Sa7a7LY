@@ -7,9 +7,14 @@ from os import listdir
 import glob
 import os
 from os.path import isfile, join
-from utils.commonfunctions import *
+from ocr import ocrEnglish
+# from utils.commonfunctions import *
 mpl.rcParams['image.cmap'] = 'gray'
 
+mypath, intersections, verticalLines, horizontalLines, binaryImgs, Cells, EnglishName, Code, StudentName, Symbol_1, Symbol_2, Symbol_3 = "SingleInput", "Intersections/", "verticalLines/", "horizontalLines/", "binaryImgs/", "Cells/", "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/", "Cells/1", "Cells/2", "Cells/3"
+
+
+# Apply erosion then dilation to detect vertical lines using the vertical kernel also for horizontal lines
 
 def getLines(img, binaryImg, x):
     # Kernel Length
@@ -123,7 +128,7 @@ def runGetCells(img, intersections):
               "Cells/EnglishName/", "Cells/1/", "Cells/2/", "Cells/3/"]
     for key in list(cells.keys()):
         for i in range(len(cells[key])):
-            cv.imwrite(labels[key] + str(i) + ".jpg", cells[key][i])
+            cv.imwrite(labels[key] + chr(i+97) + ".jpg", cells[key][i])
 
 
 def deleteFiles():
@@ -139,16 +144,6 @@ def deleteFiles():
 
 
 def run():
-    mypath = "SingleInput"
-    intersections = "Intersections/"
-    verticalLines = "verticalLines/"
-    horizontalLines = "horizontalLines/"
-    binaryImgs = "binaryImgs/"
-    Cells = "Cells/"
-    EnglishName = "Cells/EnglishName/"
-    Code = "Cells/Code/"
-    StudentName = "Cells/StudentName/"
-    Symbol_1, Symbol_2, Symbol_3 = "Cells/1", "Cells/2", "Cells/3"
     if(not os.path.exists(verticalLines)):
         os.makedirs(verticalLines)
     if(not os.path.exists(horizontalLines)):
@@ -186,3 +181,4 @@ def run():
 
 
 run()
+ocrEnglish(Code)
