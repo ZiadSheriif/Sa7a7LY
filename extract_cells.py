@@ -7,7 +7,7 @@ from os import listdir
 import glob
 import os
 from os.path import isfile, join
-from ocr import ocrEnglish
+from ocr import ocr
 # from utils.commonfunctions import *
 mpl.rcParams['image.cmap'] = 'gray'
 
@@ -181,4 +181,9 @@ def run():
 
 
 run()
-ocrEnglish(Code)
+# test code
+ocr(Code, 'eng')
+# test EnglishName
+ocr(EnglishName, 'eng')
+# test Arabic Name
+ocr(StudentName, 'ara')
