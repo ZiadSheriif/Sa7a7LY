@@ -188,7 +188,7 @@ codes = ocr(Code, 'eng')
 # test EnglishName
 englishNames = ocr(EnglishName, 'eng')
 # test Arabic Name
-arabicNames = ocr(StudentName, 'ara')
+arabicNames = ocr(StudentName, 'Arabic')
 
 
 # create excel sheet
@@ -199,7 +199,7 @@ AutoFiller.write(0, 1, 'StudentName')
 AutoFiller.write(0, 2, 'EnglishName')
 for index in range(1, len(codes)):
     AutoFiller.write(index, 0, codes[index])
-    AutoFiller.write(index, 1, arabicNames[index][::-1])
+    AutoFiller.write(index, 1, arabicNames[index])
     AutoFiller.write(index, 2, englishNames[index])
 
 wb.save('autoFiller.xls')
