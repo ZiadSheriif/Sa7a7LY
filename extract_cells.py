@@ -1,4 +1,5 @@
 # import libraries
+from recognition.knn import classify_unlabelled_directory, mapChars
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
@@ -128,9 +129,14 @@ def runGetCells(img, intersections):
 
     labels = ["Cells/Code/", "Cells/StudentName/",
               "Cells/EnglishName/", "Cells/1/", "Cells/2/", "Cells/3/"]
-    for key in list(cells.keys()):
+    for key in range(len(labels)):
         for i in range(len(cells[key])):
-            cv.imwrite(labels[key] + chr(i+97) + ".jpg", cells[key][i])
+            img = cells[key][i]
+            if(labels[key] == "Cells/1/"):
+                img = cv.resize(cells[key][i], (200, 100))
+                img = cv.resize(img, None, fx=3, fy=3,
+                                interpolation=cv.INTER_CUBIC)
+            cv.imwrite(labels[key] + chr(i+97) + ".jpg", img)
 
 
 def deleteFiles():
@@ -183,13 +189,15 @@ def run():
 
 
 run()
-# test code
+# # test code
 codes = ocr(Code, 'eng')
-# test EnglishName
+# # test EnglishName
 englishNames = ocr(EnglishName, 'eng')
-# test Arabic Name
+# # test Arabic Name
 arabicNames = ocr(StudentName, 'Arabic')
-
+# test digits Number
+numericalNumbers = classify_unlabelled_directory('./Cells/1/')
+numericalNumbers = mapChars(numericalNumbers)
 
 # create excel sheet
 wb = Workbook()
@@ -199,7 +207,11 @@ AutoFiller.write(0, 1, 'StudentName')
 AutoFiller.write(0, 2, 'EnglishName')
 for index in range(1, len(codes)):
     AutoFiller.write(index, 0, codes[index])
+for index in range(1, len(arabicNames)):
     AutoFiller.write(index, 1, arabicNames[index])
+for index in range(1, len(englishNames)):
     AutoFiller.write(index, 2, englishNames[index])
+for index in range(0, len(numericalNumbers)):
+    AutoFiller.write(index, 3, numericalNumbers[index])
 
 wb.save('autoFiller.xls')

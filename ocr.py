@@ -9,7 +9,7 @@ def ocr(dir, langSelected):
 
     # if it doesn't work :
     # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR.\tesseract.exe'
-    result=[]
+    result = []
 
     for filename in os.scandir(dir):
         try:
@@ -25,7 +25,8 @@ def ocr(dir, langSelected):
         except Exception:
             print("Error!")
     return result
-    # print(pytesseract.image_to_string(filename.path))
-    # ocrEnglish("Cells\EnglishName")
-    # ocrEnglish("Cells\Code")
-    # ocrEnglish("Cells\StudentName")
+
+#    if dir == 'Cells/1':
+#         conf = "- -psm 4 - -oem 3-c tessedit_char_whitelist =0123456789"
+#     else:
+#         conf = ""
