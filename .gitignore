@@ -185,3 +185,7 @@ fabric.properties
 .idea
 
 Cells/
+
+data/
+
+Symbols/model.sav
