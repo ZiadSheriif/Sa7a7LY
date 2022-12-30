@@ -19,20 +19,28 @@ Symbol_2, Symbol_3 = "./Cells/2", "./Cells/3"
 checkMarksPath, boxesPath, otherPath, questionMarksPath = "./data/marks", "./data/boxes", "./data/other", "./data/questionMarks"
 
 def detectHorizontalLines(symbol):
-    width = symbol.shape[1] // 13
+    width = symbol.shape[1] // 11
     horizontalSE = cv.getStructuringElement(cv.MORPH_RECT, (width, 1))
-    morphResult = cv.erode(symbol, horizontalSE, iterations=3)
+    morphResult = cv.erode(symbol, horizontalSE, iterations=2)
     contours, hierarchy = cv.findContours(morphResult, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
     horizontalLinesCnt = len(contours)
     return horizontalLinesCnt
 
 def detectVerticalLines(symbol):
-    height = symbol.shape[0] // 9
+    height = symbol.shape[0] // 11
     verticalSE = cv.getStructuringElement(cv.MORPH_RECT, (1, height))
-    morphResult = cv.erode(symbol, verticalSE, iterations=3)
+    morphResult = cv.erode(symbol, verticalSE, iterations=2)
     contours, hierarchy = cv.findContours(morphResult, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
     verticalLinesCnt = len(contours)
     return verticalLinesCnt
+
+def getLinesCount(img):
+    _, thresh = cv.threshold(img, 225, 255, cv.THRESH_BINARY_INV)
+    kernal = np.ones((2, 2), np.uint8)
+    dilatedImg = cv.dilate(thresh, kernal, iterations=1)
+    contours, hierarchy = cv.findContours(dilatedImg, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    count = len(contours)
+    return count - 1
 
 def detectEmptyCells(symbol):
     numOfWhitePixels = np.sum(symbol == 255)
@@ -144,16 +152,15 @@ def runDetectCells():
             else:
                 prediction = knnPredict(img)
                 if (prediction == "O"):
+                    count = getLinesCount(img)
+                    if (count > 5):
+                        count = 5
                     numOfHorizontalLines = detectHorizontalLines(img)
                     numOfVerticalLines = detectVerticalLines(img)
-                    if (numOfHorizontalLines > 5):
-                        numOfHorizontalLines = 5
-                    if (numOfVerticalLines > 5):
-                        numOfVerticalLines = 5
                     if (numOfVerticalLines > numOfHorizontalLines):
-                        results[i].append(numOfVerticalLines)
+                        results[i].append(count)
                     else:
-                        results[i].append(5 - numOfHorizontalLines)
+                        results[i].append(5 - count)
                 else:
                     results[i].append(mapPrediction(prediction))
     return results

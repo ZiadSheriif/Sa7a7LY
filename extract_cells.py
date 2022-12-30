@@ -114,10 +114,10 @@ def runGetCells(img, intersections):
                 cell[0:height, 0:12] = 0
                 cell[0:height, -5:width] = 0
             else:
-                cell[0:12, 0:width] = 0
-                cell[-12:height, 0:width] = 0
-                cell[0:height, 0:12] = 0
-                cell[0:height, -12:width] = 0
+                cell[0:10, 0:width] = 0
+                cell[-10:height, 0:width] = 0
+                cell[0:height, 0:10] = 0
+                cell[0:height, -10:width] = 0
             cells[col].append(cell)
 
     labels = ["Cells/Code/", "Cells/StudentName/",
