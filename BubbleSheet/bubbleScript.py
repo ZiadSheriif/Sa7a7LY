@@ -26,9 +26,11 @@ from os.path import isfile, join
 
 debug = False
 
+
 def get_circles_id_name_contours(img_cpy, cannyEdges, img):
     contours, hierarchy = cv.findContours(
-        cannyEdges, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
+        cannyEdges, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+
     white_img_contours = np.ones(img_cpy.shape)
     white_img_contours_IDBox = np.ones(img_cpy.shape)
     TwoBox = []
@@ -41,10 +43,10 @@ def get_circles_id_name_contours(img_cpy, cannyEdges, img):
     #print("max_contour_area = ", max_contour_area)
     for contour in sorted_contours:
         x, y, w, h = cv.boundingRect(contour)
-        if w/h >= 0.8 and w/h <= 1.3 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.01) > cv.contourArea(contour):
+        if w/h >= 0.8 and w/h <= 1.3 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.01) > w*h:
             cv.rectangle(white_img_contours, (x, y), (x+w, y+h), (0, 0, 0), -1)
     #         cv.fillPoly(white_img_contours, pts =[contour], color=(0,0,0))
-        elif w/h > 4 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.1) > cv.contourArea(contour):
+        elif w/h > 4 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.1) > w*h:
             cv.fillPoly(white_img_contours_IDBox, pts=[
                         contour], color=(0, 0, 0))
             all_id_boxs.append((x, y, w, h))
@@ -57,7 +59,7 @@ def get_circles_id_name_contours(img_cpy, cannyEdges, img):
     # cv.fillPoly(white_img_contours_IDBox, pts =[TwoBox[1]], color=(0,0,0))
     if debug:
         show_images([white_img_contours, cannyEdges,
-                img, white_img_contours_IDBox])
+                     img, white_img_contours_IDBox])
     return white_img_contours, white_img_contours_IDBox
 
 
@@ -69,11 +71,11 @@ def get_student_id_name(white_img_contours_IDBox, img_cpy):
     boxes_dimensions = reversed(
         sorted(boxes_dimensions, key=lambda dimension: boxes_dimensions[0]))
     for dimension in boxes_dimensions:
-        #print(dimension)
+        # print(dimension)
         (x, y, w, h) = dimension
         boxes_croped_images.append(img_cpy[y:y+h, x:x+w])
 
-    #show_images(boxes_croped_images)
+    # show_images(boxes_croped_images)
     ###########################################
     blurredImg = cv.medianBlur(boxes_croped_images[1], 3)
     kernel = np.ones((3, 3))
@@ -129,7 +131,7 @@ def apply_perspective_transform(cannyEdges, img, img_cpy):
     maxCountourArea = min_valid_contour_area
     transormedImg = img.copy()
     if(maxCountourArea > 0.4 * img.shape[0] * img.shape[1]):
-        #print("here")
+        # print("here")
         # limit contour to quadrilateral
         peri = cv.arcLength(c, True)
         corners = cv.approxPolyDP(c, 0.04 * peri, True)
@@ -219,8 +221,8 @@ def get_contours_dimensions(erodedImg, img_cpy):
     dimensions_contours = sorted(
         dimensions_contours, key=lambda dimension: dimension[0])
 
-    #print(dimensions_contours)
-    #show_images([white_img_large_contours])
+    # print(dimensions_contours)
+    # show_images([white_img_large_contours])
     return dimensions_contours
 
 
@@ -229,26 +231,32 @@ def crop_groups(dimensions_contours, img_cpy):
     for dimension in dimensions_contours:
         (x, y, w, h) = dimension
         croped_images.append(img_cpy[y:y+h, x:x+w])
-    #show_images(croped_images)
+    # show_images(croped_images)
     return croped_images
 
 
 def find_contours_to_rect(img):
-    #show_images([img])
     contours, hierarchy = cv.findContours(
         (255-img).astype("uint8"), cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
+    if cv.contourArea(max(contours, key=cv.contourArea)) > 0.5 * img.shape[0] * img.shape[1]:
+        contours, hierarchy = cv.findContours(
+            (255-img).astype("uint8"), cv.RETR_TREE, cv.CHAIN_APPROX_NONE)
     white_img_large_contours = np.ones(img.shape)
     # computes the bounding box for the contour, and draws it on the frame,
-    #print(img.shape)
-    sorted_contours = sorted(
-        contours, key=lambda ctr: cv.boundingRect(ctr)[1])
+    print(img.shape)
+    sorted_contours = sorted(contours, key=lambda ctr: cv.boundingRect(ctr)[1])
     dimensions_contours = []
     for contour in sorted_contours:
         (x, y, w, h) = cv.boundingRect(contour)
-        if w/h >= 0.8 and w/h <= 1.4 and w*h > img.shape[0]*img.shape[1]/160:
-            dimensions_contours.append((x, y, w, h))
-            cv.rectangle(white_img_large_contours,
-                         (x, y), (x+w, y+h), (0, 0, 0), 2)
+        if w/h >= 0.8 and w/h <= 1.3 and w*h > img.shape[0]*img.shape[1]/220:
+            approx = cv.approxPolyDP(
+                contour, .03 * cv.arcLength(contour, True), True)
+            # print(len(approx))
+            if len(approx) >= 6:
+                dimensions_contours.append((x, y, w, h))
+                cv.rectangle(white_img_large_contours,
+                             (x, y), (x+w, y+h), (0, 0, 0), 2)
+    print("Here === >", len(dimensions_contours))
     return white_img_large_contours, dimensions_contours
 
 
@@ -281,7 +289,7 @@ def crop_answers(croped_images):
             non_overlapped_cnts.append(dimensions_cropped_img)
         # print(non_overlapped_cnts)
 
-    #print(contours_count)
+    # print(contours_count)
     return contour_cropped_imgs, dimensions_cropped_imgs, contours_count
 
 
@@ -404,16 +412,16 @@ def segement_ID(img):
     #     cnts = cnts[0]
     # #     cnts = cnts[0] if imutils.is_cv() else cnts[1]
     #     cv.drawContours(img, cnts, -1, 0, 5) # 15 is the right thickness for this image, but might not be for other ones...
-    #show_images([img])
+    # show_images([img])
     img = cv.normalize(img, None, alpha=0, beta=255, norm_type=cv.NORM_MINMAX)
     res, img = cv.threshold(img, 64, 255, cv.THRESH_BINARY)
     # Fill everything that is the same colour (black) as top-left corner with white
-    #show_images([img])
+    # show_images([img])
     cv.floodFill(img, None, (0, 0), 255)
-    #show_images([img])
+    # show_images([img])
     # Fill everything that is the same colour (white) as top-left corner with black
     cv.floodFill(img, None, (0, 0), 0)
-    #show_images([img])
+    # show_images([img])
     contours, hierarchy = cv.findContours((img).astype("uint8"),
                                           cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
     contours = sorted(contours, key=lambda ctr: cv.boundingRect(ctr)[0])
@@ -428,7 +436,7 @@ def segement_ID(img):
                          (x, y), (x+w, y+h), (0, 0, 0), 2)
     #dimensions_contours = sorted(dimensions_contours, key=lambda dimension: dimension[0])
 
-    #print(dimensions_contours)
+    # print(dimensions_contours)
     #show_images([img, white_img_large_contours])
     return dimensions_contours, img
 
@@ -445,7 +453,7 @@ def bubble_sheet(image_path):
     ############################################
     # Apply canny edge detection
     cannyEdges = cannyEdge(img)
-    #show_images([cannyEdges])
+    # show_images([cannyEdges])
     ############################################
     # Apply adaptive threshold
     img_cpy = img.copy()
@@ -457,7 +465,7 @@ def bubble_sheet(image_path):
     ############################################
     # use canny to detect edges
     cannyEdges = cannyEdge(transormedImg)
-    #show_images([cannyEdges])
+    # show_images([cannyEdges])
     ############################################
     img_cpy = transormedImg.copy()
     img_cpy = cv.adaptiveThreshold(
