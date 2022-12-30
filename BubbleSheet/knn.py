@@ -123,7 +123,7 @@ def save_pickle(data: dict) -> None:
 
 # Loads the training model from the pickle file
 def load_pickle() -> dict:
-    a_file = open("./recognition/data.pkl", "rb")
+    a_file = open("data.pkl", "rb")
     model = pickle.load(a_file)
     return model
 
