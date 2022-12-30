@@ -188,4 +188,8 @@ Cells/
 
 data/
 
-Symbols/model.sav
+
+intersections/
+verticalLines/
+horizontalLines/
+binaryImgs/
