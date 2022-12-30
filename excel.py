@@ -4,6 +4,8 @@ import matplotlib as mpl
 from ocr import ocr
 from extract_cells import runExtractCells
 from Symbols.symbols import runDetectCells
+from recognition.codes import segmentCodes
+import os
 
 import xlwt
 from xlwt import Workbook
@@ -13,11 +15,18 @@ mpl.rcParams['image.cmap'] = 'gray'
 EnglishName, Code, StudentName = "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/"
 CODE_WIDTH, ARABIC_WIDTH, ENGLISH_WIDTH, NUMBERS_WIDTH, SYMBOL1_WIDTH, SYMBOL2_WIDTH = 3000, 10000, 11000, 3000, 3000, 3000
 
+
 def runExcel():
     # extract cells from table
     runExtractCells()
     #  test code
-    codes = ocr(Code, 'eng')
+    codes = []
+    for filename in os.scandir('./Cells/Code/'):
+        res = segmentCodes(filename.path)
+        print(res)
+        codes.append(res)
+
+    # codes = ocr(Code, 'eng')
     # test EnglishName
     englishNames = ocr(EnglishName, 'eng')
     # test Arabic Name
@@ -29,9 +38,10 @@ def runExcel():
     symbols = runDetectCells()
 
     style_center = xlwt.easyxf("align: vert centre, horiz centre")
-    style_header = xlwt.easyxf("align: vert centre, horiz centre; font: bold true")
+    style_header = xlwt.easyxf(
+        "align: vert centre, horiz centre; font: bold true")
     style_red = xlwt.easyxf("pattern: pattern solid, fore_colour red")
-    
+
     # create excel sheet
     wb = Workbook()
     AutoFiller = wb.add_sheet('AutoFiller')
@@ -41,7 +51,7 @@ def runExcel():
     AutoFiller.write(0, 3, 1, style_header)
     AutoFiller.write(0, 4, 2, style_header)
     AutoFiller.write(0, 5, 3, style_header)
-    
+
     AutoFiller.col(0).width = CODE_WIDTH
     AutoFiller.col(1).width = ARABIC_WIDTH
     AutoFiller.col(2).width = ENGLISH_WIDTH
