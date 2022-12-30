@@ -260,13 +260,13 @@ def runHog():
 
 def mapPrediction(symbol):
     if (symbol == "C"):
-        return "✔"
+        return "5"
     elif (symbol == "Q"):
-        return "?"
+        return "🟥"
     elif (symbol == "E"):
         return " "
     elif (symbol == "B"):
-        return "⬛"
+        return "0"
 
 
 def runDetectCells():
@@ -286,28 +286,18 @@ def runDetectCells():
             numOfVerticalLines = detectVerticalLines(img)
             prediction = knnPredict(img)
             if (numOfHorizontalLines > 0 and numOfVerticalLines == 0):
-                results[i].append("➖" * numOfHorizontalLines)
+                results[i].append(5 - numOfHorizontalLines)
             elif (numOfHorizontalLines == 0 and numOfVerticalLines > 0):
                 if (prediction == 'Q' or prediction == 'C'):
                     results[i].append(mapPrediction(prediction))
                 else:
-                    results[i].append("|" * numOfVerticalLines)
+                    results[i].append(numOfVerticalLines)
             else:
                 results[i].append(mapPrediction(prediction))
     return results
 
 
 def createDirs():
-    if(not os.path.exists(verticalLines)):
-        os.makedirs(verticalLines)
-    if(not os.path.exists(horizontalLines)):
-        os.makedirs(horizontalLines)
-    if(not os.path.exists(intersections)):
-        os.makedirs(intersections)
-    if(not os.path.exists(binaryImgs)):
-        os.makedirs(binaryImgs)
-    if(not os.path.exists(binaryImgs)):
-        os.makedirs(binaryImgs)
     if(not os.path.exists(Cells)):
         os.makedirs(Cells)
     if(not os.path.exists(EnglishName)):
@@ -322,6 +312,14 @@ def createDirs():
         os.makedirs(Symbol_2)
     if(not os.path.exists(Symbol_3)):
         os.makedirs(Symbol_3)
+    # if(not os.path.exists(verticalLines)):
+    #     os.makedirs(verticalLines)
+    # if(not os.path.exists(horizontalLines)):
+    #     os.makedirs(horizontalLines)
+    # if(not os.path.exists(intersections)):
+    #     os.makedirs(intersections)
+    # if(not os.path.exists(binaryImgs)):
+    #     os.makedirs(binaryImgs)
 
 
 def runExtractCells():
@@ -332,10 +330,10 @@ def runExtractCells():
             mypath + "/" + fileName)
         positions = getIntersections(result_image)
         runGetCells(img, positions)
-        cv.imwrite(verticalLines + fileName, vertical)
-        cv.imwrite(horizontalLines + fileName, horizontal)
-        cv.imwrite(intersections + fileName, result_image)
-        cv.imwrite(binaryImgs + fileName, img)
+        # cv.imwrite(verticalLines + fileName, vertical)
+        # cv.imwrite(horizontalLines + fileName, horizontal)
+        # cv.imwrite(intersections + fileName, result_image)
+        # cv.imwrite(binaryImgs + fileName, img)
 
 
 # extract cells from table
