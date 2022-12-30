@@ -38,8 +38,7 @@ def runExcel():
     symbols = runDetectCells()
 
     style_center = xlwt.easyxf("align: vert centre, horiz centre")
-    style_header = xlwt.easyxf(
-        "align: vert centre, horiz centre; font: bold true")
+    style_header = xlwt.easyxf("align: vert centre, horiz centre; font: bold true")
     style_red = xlwt.easyxf("pattern: pattern solid, fore_colour red")
 
     # create excel sheet
