@@ -188,7 +188,7 @@ Cells/
 
 data/
 
-
+recognition/data.pkl
 intersections/
 verticalLines/
 horizontalLines/
