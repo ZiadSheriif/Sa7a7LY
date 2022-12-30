@@ -19,17 +19,17 @@ Symbol_2, Symbol_3 = "./Cells/2", "./Cells/3"
 checkMarksPath, boxesPath, otherPath, questionMarksPath = "./data/marks", "./data/boxes", "./data/other", "./data/questionMarks"
 
 def detectHorizontalLines(symbol):
-    width = symbol.shape[1] // 11
+    width = symbol.shape[1] // 5
     horizontalSE = cv.getStructuringElement(cv.MORPH_RECT, (width, 1))
-    morphResult = cv.erode(symbol, horizontalSE, iterations=2)
+    morphResult = cv.morphologyEx(symbol, cv.MORPH_OPEN, horizontalSE)
     contours, hierarchy = cv.findContours(morphResult, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
     horizontalLinesCnt = len(contours)
     return horizontalLinesCnt
 
 def detectVerticalLines(symbol):
-    height = symbol.shape[0] // 11
+    height = symbol.shape[0] // 5
     verticalSE = cv.getStructuringElement(cv.MORPH_RECT, (1, height))
-    morphResult = cv.erode(symbol, verticalSE, iterations=2)
+    morphResult = cv.morphologyEx(symbol, cv.MORPH_OPEN, verticalSE)
     contours, hierarchy = cv.findContours(morphResult, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
     verticalLinesCnt = len(contours)
     return verticalLinesCnt
