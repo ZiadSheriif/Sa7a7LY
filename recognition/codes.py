@@ -50,10 +50,11 @@ def segmentCodes(img):
         imgCopy = filtered_img[y-1:y+h+1, x-1:x+w+1]
         x = imgCopy.shape[1]
         number_of_images = 1
+
         if(x > 25):
-            number_of_images = np.ceil(x / 23.0)
+            number_of_images = np.floor(x / 21)
             for j in range(int(number_of_images)):
-                imgTemp = cv.resize(imgCopy[:, j*23:(j+1)*23], (200, 100))
+                imgTemp = cv.resize(imgCopy[:, j*21:(j+1)*21], (200, 100))
                 imgTemp = cv.resize(imgTemp, None, fx=3, fy=3,
                                     interpolation=cv.INTER_CUBIC)
                 cv.imwrite("outputs/"+str(i)+".jpg", imgTemp)
@@ -68,7 +69,7 @@ def segmentCodes(img):
 
     result = classify_unlabelled_directory('./outputs/')
     result = mapChars(result)
-    files = glob.glob('/outputs/*')
+    files = glob.glob('./outputs/*')
     for file in files:
         os.remove(file)
     return result
