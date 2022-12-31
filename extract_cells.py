@@ -48,7 +48,7 @@ def getIntersections(pixels):
     uniqueKeys = []
     uniqueKeys.append(keys[0])
     for i in range(1, len(keys), 1):
-        if (keys[i] - keys[i - 1] > 5):
+        if (keys[i] - keys[i - 1] > 25):
             uniqueKeys.append(keys[i])
 
     rows = []
@@ -61,10 +61,9 @@ def getIntersections(pixels):
         finalIntersections.append([])
         finalIntersections[index].append(row[0])
         for i in range(1, len(row), 1):
-            if (row[i][1] - row[i - 1][1] > 5):
+            if (row[i][1] - row[i - 1][1] > 25):
                 finalIntersections[index].append(row[i])
         index += 1
-
     return finalIntersections
 
 
@@ -105,7 +104,8 @@ def runGetCells(img, intersections):
     intersections = np.array(intersections)
     height = img.shape[0]
     width = img.shape[1]
-    for col in range(intersections.shape[1] - 1):
+    columnsCount = intersections.shape[1] - 1
+    for col in range(columnsCount):
         cells[col] = []
         for row in range(intersections.shape[0] - 1):
             x_min = intersections[row][col][0]
@@ -125,8 +125,9 @@ def runGetCells(img, intersections):
                 cell[0:height, -12:width] = 0
             cells[col].append(cell)
 
-    labels = ["Cells/Code/", "Cells/StudentName/",
-              "Cells/EnglishName/", "Cells/1/", "Cells/2/", "Cells/3/"]
+    labels = ["Cells/Code/", "Cells/StudentName/", "Cells/EnglishName/"]
+    for i in range(columnsCount - 3):
+        labels.append("Cells/" + str(i + 1) + "/")
     for key in range(len(labels)):
         for i in range(len(cells[key])):
             img = cells[key][i]
@@ -135,6 +136,7 @@ def runGetCells(img, intersections):
                 img = cv.resize(img, None, fx=3, fy=3,
                                 interpolation=cv.INTER_CUBIC)
             cv.imwrite(labels[key] + chr(i + 97) + ".jpg", img)
+    return columnsCount
 
 
 def createDirs():
@@ -171,8 +173,9 @@ def runExtractCells():
         img, vertical, horizontal, result_image = runGetIntersections(
             mypath + "/" + fileName)
         positions = getIntersections(result_image)
-        runGetCells(img, positions)
+        count = runGetCells(img, positions)
         # cv.imwrite(verticalLines + fileName, vertical)
         # cv.imwrite(horizontalLines + fileName, horizontal)
         # cv.imwrite(intersections + fileName, result_image)
         # cv.imwrite(binaryImgs + fileName, img)
+        return count

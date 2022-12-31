@@ -14,7 +14,6 @@ import pickle
 
 mpl.rcParams['image.cmap'] = 'gray'
 
-Symbol_2, Symbol_3 = "./Cells/2", "./Cells/3"
 checkMarksPath, boxesPath, otherPath, questionMarksPath = "./data/marks", "./data/boxes", "./data/other", "./data/questionMarks"
 
 def detectHorizontalLines(symbol):
@@ -133,19 +132,18 @@ def mapPrediction(symbol):
     elif (symbol == "B"):
         return 0
 
-def runDetectCells():
+def runDetectCells(count):
     files = []
     results = [[], []]
 
-    files.append([f for f in listdir(Symbol_2) if isfile(join(Symbol_2, f))])
-    files.append([f for f in listdir(Symbol_3) if isfile(join(Symbol_3, f))])
-    for i in range(len(files)):
-        for filename in files[i]:
+    for i in range(count):
+        path = "./Cells/" + str(i + 2)
+        if (not os.path.exists(path)):
+            break
+        files = [f for f in listdir(path) if isfile(join(path, f))]
+        for filename in files:
             img = []
-            if (i == 0):
-                img = cv.imread(Symbol_2 + "/" + filename, 0)
-            else:
-                img = cv.imread(Symbol_3 + "/" + filename, 0)
+            img = cv.imread(path + "/" + filename, 0)
             if (detectEmptyCells(img)):
                 results[i].append(" ")
             else:
