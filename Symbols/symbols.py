@@ -89,7 +89,7 @@ def knnScore(x_test, y_test):
     return percentage
 
 def knnPredict(img):
-    filename = './Symbols/model.sav'
+    filename = 'model.sav'
     # load the model from disk
     knn = pickle.load(open(filename, 'rb'))
     fd = hog(resize(img, (128*4, 64*4)), orientations=9, pixels_per_cell=(14, 14),
