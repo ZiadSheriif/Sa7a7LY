@@ -37,7 +37,7 @@ def runExcel(codesChoice, digitsChoice):
     # Digits
     numericalNumbers = []
     if (digitsChoice == 1):
-        numericalNumbers = ocr(numericalNumbersDir, 'eng', "**")
+        numericalNumbers = ocr(numericalNumbersDir, 'hand3', "**")
     else:
         numericalNumbers = classify_unlabelled_directory(numericalNumbersDir)
         numericalNumbers = mapChars(numericalNumbers)

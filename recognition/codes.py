@@ -6,8 +6,6 @@ from recognition.knn import classify_unlabelled_directory, mapChars
 import glob
 import os
 
-path = './Cells/'
-
 
 def show_images(images, titles=None):
     n_ims = len(images)

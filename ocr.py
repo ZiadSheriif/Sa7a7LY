@@ -11,19 +11,23 @@ def ocr(dir, langSelected, type=None):
     # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR.\tesseract.exe'
     result = []
     if type != None:
-        conf = 'digits'
+        conf = '--psm 13 --oem 1 -c tessedit_char_whitelist=0123456789'
     else:
         conf = ""
 
     for filename in os.scandir(dir):
-        try:
-            res = pytesseract.image_to_string(
-                Image.open(filename.path), lang=langSelected, config=conf)
 
-            if(langSelected == 'ara'):
-                arabicText = get_display(res)
-                res = arabic_reshaper.reshape(arabicText)
-            result.append(res)
-        except Exception:
-            print("Error!")
+        ocrOutput = pytesseract.image_to_string(
+            Image.open(filename.path), lang=langSelected, config=conf)
+
+        if(langSelected == 'ara'):
+            arabicText = get_display(ocrOutput)
+            ocrOutput = arabic_reshaper.reshape(arabicText)
+        if(len(ocrOutput) != 0 and type != None):
+            result.append(ocrOutput[0])
+        elif (type != None):
+            result.append(0)
+        else:
+            result.append(ocrOutput)
+
     return result
