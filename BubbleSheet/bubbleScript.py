@@ -48,7 +48,7 @@ def get_circles_id_name_contours(img_cpy, cannyEdges, img):
             cv.rectangle(white_img_contours, (x, y),
                          (round(x+1.1*w), round(y+1.7*h)), (0, 0, 0), -1)
     #         cv.fillPoly(white_img_contours, pts =[contour], color=(0,0,0))
-        elif w/h > 4 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.2) > w*h:
+        elif w/h > 3 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.2) > w*h:
             cv.fillPoly(white_img_contours_IDBox, pts=[
                         contour], color=(0, 0, 0))
             all_id_boxs.append((x, y, w, h))
@@ -73,7 +73,8 @@ def get_student_id_name(white_img_contours_IDBox, img_cpy):
     boxes_dimensions = reversed(
         sorted(boxes_dimensions, key=lambda dimension: boxes_dimensions[0]))
     for dimension in boxes_dimensions:
-        # print(dimension)
+        if debug:
+            print("dimension = ",dimension)
         (x, y, w, h) = dimension
         boxes_croped_images.append(img_cpy[y:y+h, x:x+w])
 
@@ -246,7 +247,8 @@ def find_contours_to_rect(img):
             (255-img).astype("uint8"), cv.RETR_TREE, cv.CHAIN_APPROX_NONE)
     white_img_large_contours = np.ones(img.shape)
     # computes the bounding box for the contour, and draws it on the frame,
-    print(img.shape)
+    if debug:
+        print(img.shape)
     sorted_contours = sorted(contours, key=lambda ctr: cv.boundingRect(ctr)[1])
     dimensions_contours = []
     for contour in sorted_contours:
@@ -259,7 +261,6 @@ def find_contours_to_rect(img):
                 dimensions_contours.append((x, y, w, h))
                 cv.rectangle(white_img_large_contours,
                              (x, y), (x+w, y+h), (0, 0, 0), 2)
-    print("Here === >", len(dimensions_contours))
     return white_img_large_contours, dimensions_contours
 
 
@@ -340,12 +341,15 @@ def get_student_answers(groups_questions_answers, answer_count):
                 choice = question[i]
                 if np.sum(choice) < 0.6*(255*choice.shape[0]*choice.shape[1]):
                     ans.append(chr(ord('A')+i))
-            print("answer(s) for question ", question_index, "is", ans)
+            if debug:
+                print("answer(s) for question ", question_index, "is", ans)
             questions_final_answers.append(ans)
     return questions_final_answers
 
 
 def write_excel(student_id, student_name, questions_final_answers):
+    if debug:
+        print("name = " ,student_name)
     actual_answers = []
     with open("five.txt") as file:
         lines = file.readlines()
@@ -479,6 +483,7 @@ def bubble_sheet(image_path):
     ###########################################
     student_id, student_name = get_student_id_name(
         white_img_contours_IDBox, img_cpy)
+    print("Student student_name: ", student_name)
     ###########################################
 
     kernel = np.ones((20, 20))
@@ -527,7 +532,7 @@ def bubble_sheet(image_path):
 
 
 def run_bubble_sheet():
-    mypath = "dataset/Bubble_Data/four one"
+    mypath = "dataset/Bubble_Data/two"
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for i in range(len(onlyfiles)):
         # break
@@ -535,7 +540,8 @@ def run_bubble_sheet():
         print("Processed "+file+"...")
         result_image = bubble_sheet(mypath+"/"+file)
         print(file+" Processed successfully")
-    # result_image = bubble_sheet(mypath+"/"+"WhatsApp Image 2022-12-31 at 17.29.54.jpg")
+    # result_image = bubble_sheet(
+    #     mypath+"/"+"WhatsApp Image 2022-12-31 at 19.25.09.jpg")
 
 # extract_grid("datasets/dataset4_module1/5.jpg")
 
