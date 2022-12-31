@@ -24,7 +24,7 @@ import pandas as pd
 from os import listdir
 from os.path import isfile, join
 
-debug = False
+debug = True
 
 
 def get_circles_id_name_contours(img_cpy, cannyEdges, img):
@@ -43,10 +43,12 @@ def get_circles_id_name_contours(img_cpy, cannyEdges, img):
     #print("max_contour_area = ", max_contour_area)
     for contour in sorted_contours:
         x, y, w, h = cv.boundingRect(contour)
-        if w/h >= 0.8 and w/h <= 1.3 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.01) > w*h:
-            cv.rectangle(white_img_contours, (x, y), (x+w, y+h), (0, 0, 0), -1)
+        if w/h >= 0.8 and w/h <=1.3 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.01) > w*h:
+            #print("here")
+            cv.rectangle(white_img_contours, (x, y),
+                         (round(x+1.1*w), round(y+1.7*h)), (0, 0, 0), -1)
     #         cv.fillPoly(white_img_contours, pts =[contour], color=(0,0,0))
-        elif w/h > 4 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.1) > w*h:
+        elif w/h > 4 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.2) > w*h:
             cv.fillPoly(white_img_contours_IDBox, pts=[
                         contour], color=(0, 0, 0))
             all_id_boxs.append((x, y, w, h))
@@ -91,7 +93,7 @@ def get_student_id_name(white_img_contours_IDBox, img_cpy):
     for dimension in segmented_dimensions:
         (x, y, w, h) = dimension
         cropped_digits.append(filtered_img[y-1:y+h+1, x-1:x+w+1])
-        cv.imwrite(str(i)+".jpg", filtered_img[y-1:y+h+1, x-1:x+w+1])
+        #cv.imwrite(str(i)+".jpg", filtered_img[y-1:y+h+1, x-1:x+w+1])
         i += 1
     if debug:
         show_images(cropped_digits)
@@ -124,7 +126,8 @@ def apply_perspective_transform(cannyEdges, img, img_cpy):
     final_contour = c
     for contour in sorted_contours:
         contour_area = cv.contourArea(contour)
-        if contour_area > 0.4 * image_area and contour_area < min_valid_contour_area:
+        peri = cv.arcLength(contour, True)
+        if contour_area > 0.4 * image_area and contour_area < min_valid_contour_area and len(cv.approxPolyDP(contour, 0.04 * peri, True)) == 4:
             min_valid_contour_area = contour_area
             final_contour = contour
     c = final_contour
@@ -524,7 +527,7 @@ def bubble_sheet(image_path):
 
 
 def run_bubble_sheet():
-    mypath = "dataset/Bubble_Data"
+    mypath = "dataset/Bubble_Data/mo3ed2"
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for i in range(len(onlyfiles)):
         # break
@@ -532,7 +535,7 @@ def run_bubble_sheet():
         print("Processed "+file+"...")
         result_image = bubble_sheet(mypath+"/"+file)
         print(file+" Processed successfully")
-    # result_image = bubble_sheet(mypath+"/"+"TwoThree0.png")
+    # result_image = bubble_sheet(mypath+"/"+"Five0.png")
 
 # extract_grid("datasets/dataset4_module1/5.jpg")
 
