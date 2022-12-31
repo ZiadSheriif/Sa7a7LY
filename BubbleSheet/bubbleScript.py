@@ -532,7 +532,7 @@ def bubble_sheet(image_path):
 
 
 def run_bubble_sheet():
-    mypath = "dataset/Bubble_Data/two"
+    mypath = "dataset/Bubble_Data/four one"
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for i in range(len(onlyfiles)):
         # break
