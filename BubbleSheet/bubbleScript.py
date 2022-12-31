@@ -255,7 +255,7 @@ def find_contours_to_rect(img):
             approx = cv.approxPolyDP(
                 contour, .03 * cv.arcLength(contour, True), True)
             # print(len(approx))
-            if len(approx) >= 6:
+            if len(approx) >= 5:
                 dimensions_contours.append((x, y, w, h))
                 cv.rectangle(white_img_large_contours,
                              (x, y), (x+w, y+h), (0, 0, 0), 2)
@@ -272,7 +272,7 @@ def crop_answers(croped_images):
         contour_cropped_imgs.append([result_img])
         dimensions_cropped_imgs.append(result_dimenstion)
         if debug:
-            show_images([result_img])
+            show_images([result_img, image])
 
     contours_count = []
     non_overlapped_cnts = []
@@ -340,14 +340,14 @@ def get_student_answers(groups_questions_answers, answer_count):
                 choice = question[i]
                 if np.sum(choice) < 0.6*(255*choice.shape[0]*choice.shape[1]):
                     ans.append(chr(ord('A')+i))
-            #print("answer(s) for question ", question_index, "is", ans)
+            print("answer(s) for question ", question_index, "is", ans)
             questions_final_answers.append(ans)
     return questions_final_answers
 
 
 def write_excel(student_id, student_name, questions_final_answers):
     actual_answers = []
-    with open("answers.txt") as file:
+    with open("five.txt") as file:
         lines = file.readlines()
         for line in lines:
             actual_answers.append(line.split())
@@ -527,7 +527,7 @@ def bubble_sheet(image_path):
 
 
 def run_bubble_sheet():
-    mypath = "dataset/Bubble_Data/mo3ed2"
+    mypath = "dataset/Bubble_Data/four one"
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for i in range(len(onlyfiles)):
         # break
@@ -535,7 +535,7 @@ def run_bubble_sheet():
         print("Processed "+file+"...")
         result_image = bubble_sheet(mypath+"/"+file)
         print(file+" Processed successfully")
-    # result_image = bubble_sheet(mypath+"/"+"Five0.png")
+    # result_image = bubble_sheet(mypath+"/"+"WhatsApp Image 2022-12-31 at 17.29.54.jpg")
 
 # extract_grid("datasets/dataset4_module1/5.jpg")
 
