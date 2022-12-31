@@ -10,9 +10,9 @@ mpl.rcParams['image.cmap'] = 'gray'
 
 NUMBER_OF_COLUMNS = 6
 
-def getLines(img, binaryImg, x):
+def getLines(binaryImg, x):
     # Kernel Length
-    kernelLength = np.array(img).shape[1] // x
+    kernelLength = np.array(binaryImg).shape[1] // x
 
     # Vertical Kernel (1 x kernelLength)
     verticalKernel = cv.getStructuringElement(cv.MORPH_RECT, (1, kernelLength))
@@ -79,10 +79,10 @@ def houghLines(img, type):
 
 def runGetIntersections(img):
     # thresholding
-    (thresh, binaryImg) = cv.threshold(img, 128, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)
+    (thresh, binaryImg) = cv.threshold(img, 127, 255, cv.THRESH_BINARY)
     binaryImg = 255 - binaryImg
 
-    verticalLinesImg, horizontalLinesImg = getLines(img, binaryImg, x=10)
+    verticalLinesImg, horizontalLinesImg = getLines(binaryImg, x=10)
 
     verticalLinesImg = houghLines(verticalLinesImg, "vertical")
     horizontalLinesImg = houghLines(horizontalLinesImg, "horizontal")
