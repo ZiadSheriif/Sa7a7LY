@@ -16,6 +16,8 @@ import numpy as np
 # import utils
 from utils.commonfunctions import *
 
+import os
+import shutil
 from os import listdir
 from os.path import isfile,join
 
@@ -163,6 +165,9 @@ def extract_grid(file):
 def run_extract_grid():
     mypath = "Input"
     write_path = "SingleInput/"
+    if (os.path.exists(write_path)):
+        shutil.rmtree(write_path)
+    os.makedirs(write_path)
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for i in range(len(onlyfiles)):
         file = onlyfiles[i]
