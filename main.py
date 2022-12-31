@@ -1,7 +1,9 @@
 from excel import runExcel
 
 def interface():
-    print("--------------------------------------")
+    print("---------------------------------------")
+    print("           GRADES AUTOFILLER           ")
+    print("---------------------------------------")
     print("Method for converting Student IDs:")
     print("-> Enter 1 for an already-made OCR")
     print("-> Enter 2 for features + classifier")
@@ -12,7 +14,7 @@ def interface():
             break
         else:
             print("Error! You can only choose between 1 and 2. Please try again")
-    print("--------------------------------------")
+    print("---------------------------------------")
     print("Method for converting Numbers:")
     print("-> Enter 1 for an already-made OCR")
     print("-> Enter 2 for features + classifier")
@@ -23,14 +25,14 @@ def interface():
             break
         else:
             print("Error! You can only choose between 1 and 2. Please try again")
-    print("--------------------------------------")
+    print("---------------------------------------")
     return int(codesChoice), int(digitsChoice)
 
 def run():
     codesChoice, numbersChoice = interface()
     print("Processing...")
     runExcel(codesChoice, numbersChoice)
-    print("--------------------------------------")
+    print("---------------------------------------")
     print("DONE! Output written to 'autoFiller.xls'")
 
 if __name__ == "__main__":
