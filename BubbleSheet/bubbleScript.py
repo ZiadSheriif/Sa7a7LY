@@ -24,6 +24,8 @@ import pandas as pd
 from os import listdir
 from os.path import isfile, join
 
+import OCR
+
 debug = True
 
 
@@ -43,8 +45,8 @@ def get_circles_id_name_contours(img_cpy, cannyEdges, img):
     #print("max_contour_area = ", max_contour_area)
     for contour in sorted_contours:
         x, y, w, h = cv.boundingRect(contour)
-        if w/h >= 0.8 and w/h <=1.3 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.01) > w*h:
-            #print("here")
+        if w/h >= 0.8 and w/h <= 1.3 and (cannyEdges.shape[0] * cannyEdges.shape[1] * 0.01) > w*h:
+            # print("here")
             cv.rectangle(white_img_contours, (x, y),
                          (round(x+1.1*w), round(y+1.7*h)), (0, 0, 0), -1)
     #         cv.fillPoly(white_img_contours, pts =[contour], color=(0,0,0))
@@ -63,54 +65,6 @@ def get_circles_id_name_contours(img_cpy, cannyEdges, img):
         show_images([white_img_contours, cannyEdges,
                      img, white_img_contours_IDBox])
     return white_img_contours, white_img_contours_IDBox
-
-
-def get_student_id_name(white_img_contours_IDBox, img_cpy):
-    boxes_dimensions = Extract_Boxes(white_img_contours_IDBox, img_cpy)
-
-    boxes_croped_images = []
-    # print(boxes_dimenstions)
-    boxes_dimensions = reversed(
-        sorted(boxes_dimensions, key=lambda dimension: boxes_dimensions[0]))
-    for dimension in boxes_dimensions:
-        if debug:
-            print("dimension = ",dimension)
-        (x, y, w, h) = dimension
-        boxes_croped_images.append(img_cpy[y:y+h, x:x+w])
-
-    # show_images(boxes_croped_images)
-    ###########################################
-    blurredImg = cv.medianBlur(boxes_croped_images[1], 3)
-    kernel = np.ones((3, 3))
-    dilatedImg = erode(blurredImg, kernel)
-    if debug:
-        show_images([boxes_croped_images[1], blurredImg, dilatedImg])
-    ###########################################
-    segmented_dimensions, filtered_img = segement_ID(255 - 255*blurredImg)
-
-    ###########################################
-    cropped_digits = []
-    i = 0
-    for dimension in segmented_dimensions:
-        (x, y, w, h) = dimension
-        cropped_digits.append(filtered_img[y-1:y+h+1, x-1:x+w+1])
-        #cv.imwrite(str(i)+".jpg", filtered_img[y-1:y+h+1, x-1:x+w+1])
-        i += 1
-    if debug:
-        show_images(cropped_digits)
-
-    ###########################################
-    model = load_pickle()
-    for i in range(len(cropped_digits)):
-        cropped_digits[i] = cv.resize(cropped_digits[i], (200, 100))
-        cropped_digits[i] = cv.resize(cropped_digits[i], None, fx=3, fy=3,
-                                      interpolation=cv.INTER_CUBIC)
-    student_id = ""
-    if len(cropped_digits) != 0:
-        image_fv = knn.images_to_feature_vectors(cropped_digits)
-        labels = knn.classify(model, image_fv, 3)
-        student_id = knn.mapChars(listOfChars=labels)
-    return student_id, boxes_croped_images[0]
 
 
 def apply_perspective_transform(cannyEdges, img, img_cpy):
@@ -349,7 +303,7 @@ def get_student_answers(groups_questions_answers, answer_count):
 
 def write_excel(student_id, student_name, questions_final_answers):
     if debug:
-        print("name = " ,student_name)
+        print("name = ", student_name)
     actual_answers = []
     with open("five.txt") as file:
         lines = file.readlines()
@@ -361,8 +315,7 @@ def write_excel(student_id, student_name, questions_final_answers):
     for i in range(len(questions_final_answers)):
         questions_final_answers[i].sort()
         actual_answers[i].sort()
-        data["Q"+str(i+1)] = [1 if questions_final_answers[i]
-                              == actual_answers[i] else 0]
+        data["Q"+str(i+1)] = [1 if questions_final_answers[i]== actual_answers[i] else 0]
 
     df = pd.DataFrame(data)
     with pd.ExcelWriter("answers.xlsx", mode="a", if_sheet_exists="overlay") as writer:
@@ -391,144 +344,83 @@ def ocr(img, langSelected="eng"):
     return res
 
 
-def Extract_Boxes(img, img_cpy):
-    kernel = np.ones((15, 15))
-    #dilatedImg = dilate(img, kernel)
-    kernel = np.ones((15, 15))
-    erodedImg = erode(img, kernel)
 
-    contours, hierarchy = cv.findContours((255 - erodedImg*255).astype("uint8"),
-                                          cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
-    white_img_large_contours = np.ones(img_cpy.shape)
-    # computes the bounding box for the contour, and draws it on the frame,
-    dimensions_contours = []
-    sorted_contours = sorted(contours, key=cv.contourArea)
-    for i in range(2):
-        contour = sorted_contours[len(sorted_contours) - i - 1]
-        (x, y, w, h) = cv.boundingRect(contour)
-        dimensions_contours.append((x, y, w, h))
-        cv.rectangle(white_img_large_contours,
-                     (x, y), (x+w, y+h), (0, 0, 0), 2)
-#     print(dimensions_contours)
-    #show_images([erodedImg, white_img_large_contours])
-    return dimensions_contours
+class Bubble:
+    def __init__(self, input_path, output_path, model_path):
+        self.input_path = input_path
+        self.output_path = output_path
+        self.model_path = model_path
 
+    def run(self):
+        # Define variables
+        my_ocr = OCR.OCR(debug)
 
-def segement_ID(img):
-    #     cnts = cv.findContours(img, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
-    #     cnts = cnts[0]
-    # #     cnts = cnts[0] if imutils.is_cv() else cnts[1]
-    #     cv.drawContours(img, cnts, -1, 0, 5) # 15 is the right thickness for this image, but might not be for other ones...
-    # show_images([img])
-    img = cv.normalize(img, None, alpha=0, beta=255, norm_type=cv.NORM_MINMAX)
-    res, img = cv.threshold(img, 64, 255, cv.THRESH_BINARY)
-    # Fill everything that is the same colour (black) as top-left corner with white
-    # show_images([img])
-    cv.floodFill(img, None, (0, 0), 255)
-    # show_images([img])
-    # Fill everything that is the same colour (white) as top-left corner with black
-    cv.floodFill(img, None, (0, 0), 0)
-    # show_images([img])
-    contours, hierarchy = cv.findContours((img).astype("uint8"),
-                                          cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
-    contours = sorted(contours, key=lambda ctr: cv.boundingRect(ctr)[0])
-    white_img_large_contours = np.ones(img.shape)
-    dimensions_contours = []
-    for contour in contours:
-        #         print(contour)
-        (x, y, w, h) = cv.boundingRect(contour)
-        if(w*h > 20):
-            dimensions_contours.append((x, y, w, h))
-            cv.rectangle(white_img_large_contours,
-                         (x, y), (x+w, y+h), (0, 0, 0), 2)
-    #dimensions_contours = sorted(dimensions_contours, key=lambda dimension: dimension[0])
+        # read image
+        img = cv.imread(self.input_path, 0)
+        ############################################
+        # Apply canny edge detection
+        cannyEdges = cannyEdge(img)
+        # show_images([cannyEdges])
+        ############################################
+        # Apply adaptive threshold
+        img_cpy = img.copy()
+        img_cpy = cv.adaptiveThreshold(
+            img_cpy, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 59, 3)
+        ############################################
+        # Apply perspective transform
+        transormedImg = apply_perspective_transform(cannyEdges, img, img_cpy)
+        ############################################
+        # use canny to detect edges
+        cannyEdges = cannyEdge(transormedImg)
+        # show_images([cannyEdges])
+        ############################################
+        img_cpy = transormedImg.copy()
+        img_cpy = cv.adaptiveThreshold(
+            img_cpy, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 59, 3)
+        # Get circles ,student id and name contours
+        white_img_contours, white_img_contours_IDBox = get_circles_id_name_contours(
+            img_cpy, cannyEdges, img)
+        ###########################################
+        # Get student id and name
+        student_id, student_name = my_ocr.run(
+            white_img_contours_IDBox, img_cpy)
+        ###########################################
 
-    # print(dimensions_contours)
-    #show_images([img, white_img_large_contours])
-    return dimensions_contours, img
+        kernel = np.ones((20, 20))
+        erodedImg2 = erode(white_img_contours, kernel)
 
+        kernel = np.ones((20, 20))
+        dilatedImg = dilate(erodedImg2, kernel)
 
-def load_pickle() -> dict:
-    a_file = open("./data.pkl", "rb")
-    model = pickle.load(a_file)
-    return model
+        kernel = np.ones((25, 25))
+        erodedImg = erode(dilatedImg, kernel)
+        #show_images([white_img_contours, dilatedImg, erodedImg, erodedImg2])
 
-
-def bubble_sheet(image_path):
-    # read image
-    img = cv.imread(image_path, 0)
-    ############################################
-    # Apply canny edge detection
-    cannyEdges = cannyEdge(img)
-    # show_images([cannyEdges])
-    ############################################
-    # Apply adaptive threshold
-    img_cpy = img.copy()
-    img_cpy = cv.adaptiveThreshold(
-        img_cpy, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 59, 3)
-    ############################################
-    # Apply perspective transform
-    transormedImg = apply_perspective_transform(cannyEdges, img, img_cpy)
-    ############################################
-    # use canny to detect edges
-    cannyEdges = cannyEdge(transormedImg)
-    # show_images([cannyEdges])
-    ############################################
-    img_cpy = transormedImg.copy()
-    img_cpy = cv.adaptiveThreshold(
-        img_cpy, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 59, 3)
-    # Get circles ,student id and name contours
-    white_img_contours, white_img_contours_IDBox = get_circles_id_name_contours(
-        img_cpy, cannyEdges, img)
-    ###########################################
-    student_id, student_name = get_student_id_name(
-        white_img_contours_IDBox, img_cpy)
-    print("Student student_name: ", student_name)
-    ###########################################
-
-    kernel = np.ones((20, 20))
-    erodedImg2 = erode(white_img_contours, kernel)
-
-    kernel = np.ones((20, 20))
-    dilatedImg = dilate(erodedImg2, kernel)
-
-    kernel = np.ones((25, 25))
-    erodedImg = erode(dilatedImg, kernel)
-    #show_images([white_img_contours, dilatedImg, erodedImg, erodedImg2])
-
-    ###########################################
-    # Get all contours of the image
-    dimensions_contours = get_contours_dimensions(erodedImg, img_cpy)
-    ###########################################
-    # Crop questions groups
-    croped_images = crop_groups(dimensions_contours, img_cpy)
-    ###########################################
-    # Crop answers from each group of questions
-    contour_cropped_imgs, dimensions_cropped_imgs, contours_count = crop_answers(
-        croped_images)
-    ###########################################
-    # Get number of answers per question
-    answer_count = get_number_of_answers_per_question(contours_count)
-    ###########################################
-    # Groups questions in groups with there answers
-    groups_questions_answers = groups_questions(
-        dimensions_cropped_imgs, croped_images, answer_count)
-    ###########################################
-    # count = 0
-    # print("groups_questions_answers", len(groups_questions_answers))
-    # for group in groups_questions_answers:
-    #     print("group", len(group))
-    #     for question in group:
-    #         show_images(question)
-    ###########################################
-    # Group questions in groups and find answers
-    questions_final_answers = get_student_answers(
-        groups_questions_answers, answer_count)
-    ###########################################
-    # Write results to excel sheet
-    write_excel(student_id, ocr(student_name), questions_final_answers)
-    ###########################################
-    ###########################################
+        ###########################################
+        # Get all contours of the image
+        dimensions_contours = get_contours_dimensions(erodedImg, img_cpy)
+        ###########################################
+        # Crop questions groups
+        croped_images = crop_groups(dimensions_contours, img_cpy)
+        ###########################################
+        # Crop answers from each group of questions
+        contour_cropped_imgs, dimensions_cropped_imgs, contours_count = crop_answers(
+            croped_images)
+        ###########################################
+        # Get number of answers per question
+        answer_count = get_number_of_answers_per_question(contours_count)
+        ###########################################
+        # Groups questions in groups with there answers
+        groups_questions_answers = groups_questions(
+            dimensions_cropped_imgs, croped_images, answer_count)
+        ###########################################
+        # Group questions in groups and find answers
+        questions_final_answers = get_student_answers(
+            groups_questions_answers, answer_count)
+        ###########################################
+        # Write results to excel sheet
+        write_excel(student_id, ocr(student_name), questions_final_answers)
+        ###########################################
 
 
 def run_bubble_sheet():
@@ -546,4 +438,14 @@ def run_bubble_sheet():
 # extract_grid("datasets/dataset4_module1/5.jpg")
 
 
-run_bubble_sheet()
+if __name__ == "__main__":
+    mypath = "dataset/Bubble_Data/four one"
+    onlyFiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+    for i in range(len(onlyFiles)):
+        # break
+        file = onlyFiles[i]
+        print("Processed "+file+"...")
+        bubble = Bubble("dataset/Bubble_Data/four one"+"/"+file,
+                        "answer.xlsx", "./data.pkl")
+        bubble.run()
+        print(file+" Processed successfully")
