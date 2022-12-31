@@ -2,7 +2,7 @@
 import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
-from recognition.knn import classify_unlabelled_directory, mapChars
+from recognition.knn import classifyUnlabelledDirectory, mapChars
 import glob
 import os
 
@@ -23,6 +23,8 @@ def show_images(images, titles=None):
     fig.set_size_inches(np.array(fig.get_size_inches()) * n_ims)
     plt.show()
 
+# * Segment the image into characters to recognize each character
+
 
 def segmentCodes(img):
     img = cv.imread(img, 0)
@@ -33,27 +35,27 @@ def segmentCodes(img):
     contours, hierarchy = cv.findContours((img).astype("uint8"),
                                           cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
     contours = sorted(contours, key=lambda ctr: cv.boundingRect(ctr))
-    white_img_large_contours = np.ones(img.shape)
-    dimensions_contours = []
+    whiteImgLargeContours = np.ones(img.shape)
+    dimensionsContours = []
     for contour in contours:
         (x, y, w, h) = cv.boundingRect(contour)
         if(w*h > 40):
-            dimensions_contours.append((x, y, w, h))
-            cv.rectangle(white_img_large_contours,
+            dimensionsContours.append((x, y, w, h))
+            cv.rectangle(whiteImgLargeContours,
                          (x, y), (x+w, y+h), (0, 0, 255), 1)
-    cropped_digits = []
+    croppedDigits = []
     i = 0
-    filtered_img = img
-    for dimension in dimensions_contours:
+    filteredImg = img
+    for dimension in dimensionsContours:
         (x, y, w, h) = dimension
-        cropped_digits.append(filtered_img[y-1:y+h+1, x-1:x+w+1])
-        imgCopy = filtered_img[y-1:y+h+1, x-1:x+w+1]
+        croppedDigits.append(filteredImg[y-1:y+h+1, x-1:x+w+1])
+        imgCopy = filteredImg[y-1:y+h+1, x-1:x+w+1]
         x = imgCopy.shape[1]
-        number_of_images = 1
+        numberOfImages = 1
 
         if(x > 25):
-            number_of_images = np.floor(x / 21)
-            for j in range(int(number_of_images)):
+            numberOfImages = np.floor(x / 21)
+            for j in range(int(numberOfImages)):
                 imgTemp = cv.resize(imgCopy[:, j*21:(j+1)*21], (200, 100))
                 imgTemp = cv.resize(imgTemp, None, fx=3, fy=3,
                                     interpolation=cv.INTER_CUBIC)
@@ -67,7 +69,7 @@ def segmentCodes(img):
             cv.imwrite("outputs/"+str(i)+".jpg", imgCopy)
             i += 1
 
-    result = classify_unlabelled_directory('./outputs/')
+    result = classifyUnlabelledDirectory('./outputs/')
     result = mapChars(result)
     files = glob.glob('./outputs/*')
     for file in files:

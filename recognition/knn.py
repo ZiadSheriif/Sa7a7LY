@@ -9,11 +9,11 @@ from numpy import ndarray
 from scipy import linalg, stats
 from typing import List, Tuple
 
-# combined_directory = "../chars/"
+combined_directory = "../chars/"
 
 
 # Takes a directory path and returns all the names of the subdirectories or images, and their paths
-def open_directory(directory_path, images: bool):
+def openDirectory(directory_path, images: bool):
     names = os.listdir(directory_path)
     if images:
         paths = [directory_path + name for name in names]
@@ -23,7 +23,7 @@ def open_directory(directory_path, images: bool):
 
 
 # Takes a list of image paths and returns a list of image np arrays
-def open_images(image_paths):
+def openImages(image_paths):
     image_arrays = [np.array(Image.open(image_path))
                     for image_path in image_paths]
     return image_arrays
@@ -59,16 +59,16 @@ def split_three(image_list, ratio=[0.8, 0.1, 0.1]):
 
 # Takes the path of a directory where every image is placed into a directory with the name of the label
 # and returns a dictionary with the feature vectors and their corresponding labels
-def label_data(directory):
+def labelData(directory):
     data_labelled = {}
     data_fvectors = []
     data_labels = []
-    subdirectory_paths, subdirectory_names = open_directory(
+    subdirectory_paths, subdirectory_names = openDirectory(
         directory, images=False)
     for i in range(len(subdirectory_names)):
         images = os.listdir(subdirectory_paths[i])
         images = [subdirectory_paths[i] + "/" + image for image in images]
-        images = open_images(images)
+        images = openImages(images)
         data_fv = images_to_feature_vectors(images)
         for fv in data_fv:
             data_fvectors.append(fv)
@@ -87,19 +87,19 @@ def split_train_test(directory):
     test_model = {}
     test_fvectors = []
     test_labels = []
-    subdirectory_paths, subdirectory_names = open_directory(
+    subdirectory_paths, subdirectory_names = openDirectory(
         directory, images=False)
     for i in range(len(subdirectory_names)):
         images = os.listdir(subdirectory_paths[i])
         shuffle(images)
         images = [subdirectory_paths[i] + "/" + image for image in images]
         train, test = split_two(images)
-        train = open_images(train)
+        train = openImages(train)
         train_fv = images_to_feature_vectors(train)
         for fv in train_fv:
             train_fvectors.append(fv)
             train_labels.append(subdirectory_names[i])
-        test = open_images(test)
+        test = openImages(test)
         test_fv = images_to_feature_vectors(test)
         for fv in test_fv:
             test_fvectors.append(fv)
@@ -113,21 +113,21 @@ def split_train_test(directory):
 
 
 # Save the training model to a pickle file
-def save_pickle(data: dict) -> None:
+def savePickle(data: dict) -> None:
     a_file = open("data.pkl", "wb")
     pickle.dump(data, a_file)
     a_file.close()
 
 
 # Loads the training model from the pickle file
-def load_pickle() -> dict:
+def loadPickle() -> dict:
     a_file = open("./recognition/data.pkl", "rb")
     model = pickle.load(a_file)
     return model
 
 
 # Computes the cosine similarity between arrays of training and testing data and returns the distance where rows correspond to test images and columns correspond to train images, very quick
-def cosine_similarity(training, testing):
+def cosineSimilarity(training, testing):
     tdott = np.dot(testing, training.transpose())
     modtrain = np.sqrt(np.sum(training * training, axis=1))
     modtest = np.sqrt(np.sum(testing * testing, axis=1))
@@ -136,7 +136,7 @@ def cosine_similarity(training, testing):
 
 
 # computes the euclidean distance between arrays of training and testing data, pretty slow
-def euclidean_distance(training, testing):
+def euclideanDistance(training, testing):
     dist = np.full([len(testing), len(training)], 0)
     for testrow in range(0, testing.shape[0]):
         for trainrow in range(0, training.shape[0]):
@@ -155,7 +155,7 @@ def classify(train_model: dict, test_fvectors, k) -> List[str]:
     train_labels = train_model["labels"]
 
     # Compute distance
-    dist = cosine_similarity(train_fvectors, test_fvectors)
+    dist = cosineSimilarity(train_fvectors, test_fvectors)
 
     # Extract k nearest images
     knearest = np.argsort(dist, axis=1)[:, 0:k]
@@ -202,27 +202,27 @@ def test_n_times(directory_of_images, k, n):
 
 
 # Saves the model using train data directory
-def save_model(train_data_directory):
-    model = label_data(train_data_directory)
-    save_pickle(model)
+def saveModel(train_data_directory):
+    model = labelData(train_data_directory)
+    savePickle(model)
 
 
 # save_model(combined_directory)
 
 
 # Takes the directory path of the images we want to classify and returns the corresponding labels
-def classify_unlabelled_directory(segmented_image_directory):
-    image_paths, _ = open_directory(segmented_image_directory, images=True)
-    image_arrays = open_images(image_paths)
+def classifyUnlabelledDirectory(segmented_image_directory):
+    image_paths, _ = openDirectory(segmented_image_directory, images=True)
+    image_arrays = openImages(image_paths)
     image_fvectors = images_to_feature_vectors(image_arrays)
-    train_model = load_pickle()
+    train_model = loadPickle()
     labels = classify(train_model, image_fvectors, 3)
     return labels
 
 
-def classify_image_arrays(image_arrays):
+def classifyImageArrays(image_arrays):
     image_fv = images_to_feature_vectors(image_arrays)
-    train_model = load_pickle()
+    train_model = loadPickle()
     labels = classify(train_model, image_fv, 3)
     return labels
 
@@ -247,6 +247,6 @@ def mapChars(listOfChars):
     return "".join(list((finalChar)))
 
 
-# save_model(combined_directory)
+saveModel(combined_directory)
 # predicted_chars = classify_unlabelled_directory('./test/')
 # print(predictChars(predicted_chars))
