@@ -45,7 +45,8 @@ def runExcel(codesChoice, digitsChoice):
     symbols = runDetectCells()
 
     style_center = xlwt.easyxf("align: vert centre, horiz centre")
-    style_header = xlwt.easyxf("align: vert centre, horiz centre; font: bold true; pattern: pattern solid, fore_colour gray25")
+    style_header = xlwt.easyxf(
+        "align: vert centre, horiz centre; font: bold true; pattern: pattern solid, fore_colour gray25")
     style_red = xlwt.easyxf("pattern: pattern solid, fore_colour red")
 
     # create excel sheet
@@ -66,7 +67,7 @@ def runExcel(codesChoice, digitsChoice):
     AutoFiller.col(5).width = SYMBOL2_WIDTH
 
     for index in range(1, len(codes)):
-        AutoFiller.write(index, 0, codes[index], style_center)
+        AutoFiller.write(index, 0, int(codes[index]), style_center)
 
     for index in range(1, len(arabicNames)):
         AutoFiller.write(index, 1, arabicNames[index], style_center)

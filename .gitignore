@@ -188,9 +188,8 @@ Cells/
 
 data/
 
-recognition/data.pkl
 intersections/
 verticalLines/
 horizontalLines/
 binaryImgs/
-BubbleSheet/data.pkl
+*data.pkl

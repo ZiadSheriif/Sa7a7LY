@@ -8,7 +8,8 @@ from os.path import isfile, join
 
 mpl.rcParams['image.cmap'] = 'gray'
 
-mypath, intersections, verticalLines, horizontalLines, binaryImgs, Cells, EnglishName, Code, StudentName, Symbol_1, Symbol_2, Symbol_3 = "SingleInput", "Intersections/", "verticalLines/", "horizontalLines/", "binaryImgs/", "Cells/", "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/", "Cells/1", "Cells/2", "Cells/3"
+mypath, intersections, verticalLines, horizontalLines, binaryImgs, Cells, EnglishName, Code, StudentName, Symbol_1, Symbol_2, Symbol_3, outputs = "SingleInput", "Intersections/", "verticalLines/", "horizontalLines/", "binaryImgs/", "Cells/", "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/", "Cells/1", "Cells/2", "Cells/3", "outputs/"
+
 
 def getLines(binaryImg, x):
     # Kernel Length
@@ -30,6 +31,7 @@ def getLines(binaryImg, x):
     horizontalLinesImg = cv.dilate(erodedImg, horizontalKernel, iterations=3)
 
     return verticalLinesImg, horizontalLinesImg
+
 
 def getIntersections(pixels):
     intersections = {}
@@ -65,6 +67,7 @@ def getIntersections(pixels):
 
     return finalIntersections
 
+
 def houghLines(img, type):
     lines = cv.HoughLinesP(img.astype(np.uint8), 0.5, np.pi/180, 100,
                            minLineLength=0.25*min(img.shape[0], img.shape[1]), maxLineGap=10)
@@ -80,11 +83,13 @@ def houghLines(img, type):
                     (img.shape[1], y2), (255, 255, 255), 1)
     return hough_lines_out
 
+
 def runGetIntersections(imgPath):
     img = cv.imread(imgPath, 0)
 
     # thresholding
-    (thresh, binaryImg) = cv.threshold(img, 128, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)
+    (thresh, binaryImg) = cv.threshold(
+        img, 128, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)
     binaryImg = 255 - binaryImg
 
     verticalLinesImg, horizontalLinesImg = getLines(binaryImg, x=10)
@@ -93,6 +98,7 @@ def runGetIntersections(imgPath):
     horizontalLinesImg = houghLines(horizontalLinesImg, "horizontal")
 
     return binaryImg, verticalLinesImg, horizontalLinesImg, cv.bitwise_and(verticalLinesImg, horizontalLinesImg)
+
 
 def runGetCells(img, intersections):
     cells = {}
@@ -126,8 +132,10 @@ def runGetCells(img, intersections):
             img = cells[key][i]
             if(labels[key] == "Cells/1/"):
                 img = cv.resize(cells[key][i], (200, 100))
-                img = cv.resize(img, None, fx=3, fy=3, interpolation=cv.INTER_CUBIC)
+                img = cv.resize(img, None, fx=3, fy=3,
+                                interpolation=cv.INTER_CUBIC)
             cv.imwrite(labels[key] + chr(i + 97) + ".jpg", img)
+
 
 def createDirs():
     if(not os.path.exists(Cells)):
@@ -144,6 +152,8 @@ def createDirs():
         os.makedirs(Symbol_2)
     if(not os.path.exists(Symbol_3)):
         os.makedirs(Symbol_3)
+    if(not os.path.exists(outputs)):
+        os.makedirs(outputs)
     # if(not os.path.exists(verticalLines)):
     #     os.makedirs(verticalLines)
     # if(not os.path.exists(horizontalLines)):
@@ -153,11 +163,13 @@ def createDirs():
     # if(not os.path.exists(binaryImgs)):
     #     os.makedirs(binaryImgs)
 
+
 def runExtractCells():
     createDirs()
     files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for fileName in files:
-        img, vertical, horizontal, result_image = runGetIntersections(mypath + "/" + fileName)
+        img, vertical, horizontal, result_image = runGetIntersections(
+            mypath + "/" + fileName)
         positions = getIntersections(result_image)
         runGetCells(img, positions)
         # cv.imwrite(verticalLines + fileName, vertical)
