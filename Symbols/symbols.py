@@ -68,11 +68,11 @@ def train(x_train, y_train):
     knn.fit(x_train, y_train)
 
     # save the model to disk
-    filename = 'model.sav'
+    filename = './Symbols/model.sav'
     pickle.dump(knn, open(filename, 'wb'))
 
 def knnScore(x_test, y_test):
-    filename = 'model.sav'
+    filename = './Symbols/model.sav'
     # load the model from disk
     knn = pickle.load(open(filename, 'rb'))
     list_hog_fd = []
@@ -89,7 +89,7 @@ def knnScore(x_test, y_test):
     return percentage
 
 def knnPredict(img):
-    filename = 'model.sav'
+    filename = './Symbols/model.sav'
     # load the model from disk
     knn = pickle.load(open(filename, 'rb'))
     fd = hog(resize(img, (128*4, 64*4)), orientations=9, pixels_per_cell=(14, 14),
