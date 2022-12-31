@@ -26,7 +26,6 @@ def show_images(images, titles=None):
 
 
 def segmentCodes(img):
-    img = cv.imread(img, 0)
     # img = img*255
     show_images([img])
     # kernel = np.ones((5, 5), np.uint8)

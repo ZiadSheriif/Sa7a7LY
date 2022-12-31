@@ -6,36 +6,34 @@ from extract_cells import runExtractCells
 from Symbols.symbols import runDetectCells
 from recognition.codes import segmentCodes
 import os
-
 import xlwt
 from xlwt import Workbook
-# from utils.commonfunctions import *
+
 mpl.rcParams['image.cmap'] = 'gray'
 
-EnglishName, Code, StudentName = "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/"
 CODE_WIDTH, ARABIC_WIDTH, ENGLISH_WIDTH, NUMBERS_WIDTH, SYMBOL1_WIDTH, SYMBOL2_WIDTH = 3000, 10000, 11000, 3000, 3000, 3000
 
 
-def runExcel():
+def runExcel(userInput):
     # extract cells from table
-    runExtractCells()
+    columns = runExtractCells()
     #  test code
     codes = []
-    for filename in os.scandir('./Cells/Code/'):
-        res = segmentCodes(filename.path)
-        print(res)
-        codes.append(res)
-
-    # codes = ocr(Code, 'eng')
-    # test EnglishName
-    englishNames = ocr(EnglishName, 'eng')
+    if (userInput == 1):
+        for img in columns[0]:
+            res = segmentCodes(img)
+            codes.append(res)
+    else:
+        codes = ocr(columns[0], 'eng')
     # test Arabic Name
-    arabicNames = ocr(StudentName, 'Arabic')
+    arabicNames = ocr(columns[1], 'Arabic')
+    # test EnglishName
+    englishNames = ocr(columns[2], 'eng')
     # test digits Number
-    numericalNumbers = classify_unlabelled_directory('./Cells/1/')
+    numericalNumbers = classify_unlabelled_directory(columns[3])
     numericalNumbers = mapChars(numericalNumbers)
     # detect symbols
-    symbols = runDetectCells()
+    symbols = runDetectCells(columns[4:6])
 
     style_center = xlwt.easyxf("align: vert centre, horiz centre")
     style_header = xlwt.easyxf("align: vert centre, horiz centre; font: bold true")

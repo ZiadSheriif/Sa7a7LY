@@ -118,8 +118,7 @@ def getData():
 
 def runHog():
     x, y = getData()
-    x_train, x_test, y_train, y_test = train_test_split(
-        x, y, test_size=0.33, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
 
     train(x_train, y_train)
     score = knnScore(x_test, y_test)
@@ -134,19 +133,10 @@ def mapPrediction(symbol):
     elif (symbol == "B"):
         return 0
 
-def runDetectCells():
-    files = []
+def runDetectCells(columns):
     results = [[], []]
-
-    files.append([f for f in listdir(Symbol_2) if isfile(join(Symbol_2, f))])
-    files.append([f for f in listdir(Symbol_3) if isfile(join(Symbol_3, f))])
-    for i in range(len(files)):
-        for filename in files[i]:
-            img = []
-            if (i == 0):
-                img = cv.imread(Symbol_2 + "/" + filename, 0)
-            else:
-                img = cv.imread(Symbol_3 + "/" + filename, 0)
+    for i in range(2):
+        for img in columns[i]:
             if (detectEmptyCells(img)):
                 results[i].append(" ")
             else:

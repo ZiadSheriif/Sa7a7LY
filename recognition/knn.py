@@ -213,10 +213,8 @@ def save_model(train_data_directory):
 
 
 # Takes the directory path of the images we want to classify and returns the corresponding labels
-def classify_unlabelled_directory(segmented_image_directory):
-    image_paths, _ = open_directory(segmented_image_directory, images=True)
-    image_arrays = open_images(image_paths)
-    image_fvectors = images_to_feature_vectors(image_arrays)
+def classify_unlabelled_directory(images):
+    image_fvectors = images_to_feature_vectors(images)
     train_model = load_pickle()
     labels = classify(train_model, image_fvectors, 3)
     return labels
