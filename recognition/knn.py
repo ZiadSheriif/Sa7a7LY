@@ -9,9 +9,7 @@ from numpy import ndarray
 from scipy import linalg, stats
 from typing import List, Tuple
 
-combined_directory = "./AllChars/"
-directory_n_1 = "./recognition/batch2/"
-directory_n_2 = "./recognition/batch3/"
+combined_directory = "../chars/"
 
 
 # Takes a directory path and returns all the names of the subdirectories or images, and their paths
@@ -249,6 +247,6 @@ def mapChars(listOfChars):
     return "".join(list((finalChar)))
 
 
-# save_model(combined_directory)
+save_model(combined_directory)
 # predicted_chars = classify_unlabelled_directory('./test/')
 # print(predictChars(predicted_chars))
