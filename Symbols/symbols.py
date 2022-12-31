@@ -8,7 +8,6 @@ from os.path import isfile, join
 
 from skimage.feature import hog
 from skimage.transform import resize
-from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 import pickle
@@ -153,8 +152,6 @@ def runDetectCells():
                 prediction = knnPredict(img)
                 if (prediction == "O"):
                     count = getLinesCount(img)
-                    if (count > 5):
-                        count = 5
                     numOfHorizontalLines = detectHorizontalLines(img)
                     numOfVerticalLines = detectVerticalLines(img)
                     if (numOfVerticalLines > numOfHorizontalLines):

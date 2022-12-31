@@ -10,9 +10,9 @@ mpl.rcParams['image.cmap'] = 'gray'
 
 mypath, intersections, verticalLines, horizontalLines, binaryImgs, Cells, EnglishName, Code, StudentName, Symbol_1, Symbol_2, Symbol_3 = "SingleInput", "Intersections/", "verticalLines/", "horizontalLines/", "binaryImgs/", "Cells/", "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/", "Cells/1", "Cells/2", "Cells/3"
 
-def getLines(img, binaryImg, x):
+def getLines(binaryImg, x):
     # Kernel Length
-    kernelLength = np.array(img).shape[1] // x
+    kernelLength = np.array(binaryImg).shape[1] // x
 
     # Vertical Kernel (1 x kernelLength)
     verticalKernel = cv.getStructuringElement(cv.MORPH_RECT, (1, kernelLength))
@@ -84,11 +84,10 @@ def runGetIntersections(imgPath):
     img = cv.imread(imgPath, 0)
 
     # thresholding
-    (thresh, binaryImg) = cv.threshold(
-        img, 128, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)
+    (thresh, binaryImg) = cv.threshold(img, 128, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)
     binaryImg = 255 - binaryImg
 
-    verticalLinesImg, horizontalLinesImg = getLines(img, binaryImg, x=10)
+    verticalLinesImg, horizontalLinesImg = getLines(binaryImg, x=10)
 
     verticalLinesImg = houghLines(verticalLinesImg, "vertical")
     horizontalLinesImg = houghLines(horizontalLinesImg, "horizontal")
@@ -127,8 +126,7 @@ def runGetCells(img, intersections):
             img = cells[key][i]
             if(labels[key] == "Cells/1/"):
                 img = cv.resize(cells[key][i], (200, 100))
-                img = cv.resize(img, None, fx=3, fy=3,
-                                interpolation=cv.INTER_CUBIC)
+                img = cv.resize(img, None, fx=3, fy=3, interpolation=cv.INTER_CUBIC)
             cv.imwrite(labels[key] + chr(i + 97) + ".jpg", img)
 
 def createDirs():

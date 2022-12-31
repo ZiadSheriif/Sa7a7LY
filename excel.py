@@ -4,6 +4,7 @@ import matplotlib as mpl
 from ocr import ocr
 from extract_cells import runExtractCells
 from Symbols.symbols import runDetectCells
+from extract_grid_script import run_extract_grid
 from recognition.codes import segmentCodes
 import os
 
@@ -13,40 +14,46 @@ from xlwt import Workbook
 mpl.rcParams['image.cmap'] = 'gray'
 
 EnglishName, Code, StudentName = "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/"
-CODE_WIDTH, ARABIC_WIDTH, ENGLISH_WIDTH, NUMBERS_WIDTH, SYMBOL1_WIDTH, SYMBOL2_WIDTH = 3000, 10000, 11000, 3000, 3000, 3000
+CODE_WIDTH, ARABIC_WIDTH, ENGLISH_WIDTH, NUMBERS_WIDTH, SYMBOL1_WIDTH, SYMBOL2_WIDTH = 4000, 10000, 11000, 3000, 3000, 3000
 
 
-def runExcel():
-    # extract cells from table
+def runExcel(codesChoice, digitsChoice):
+    # Extract grid from table
+    run_extract_grid()
+    # Extract cells from grid
     runExtractCells()
-    #  test code
+    # Codes
     codes = []
-    for filename in os.scandir('./Cells/Code/'):
-        res = segmentCodes(filename.path)
-        print(res)
-        codes.append(res)
-
-    # codes = ocr(Code, 'eng')
-    # test EnglishName
-    englishNames = ocr(EnglishName, 'eng')
-    # test Arabic Name
+    if (codesChoice == 1):
+        codes = ocr(Code, 'eng')
+    else:
+        for filename in os.scandir('./Cells/Code/'):
+            res = segmentCodes(filename.path)
+            codes.append(res)
+    # Arabic Names
     arabicNames = ocr(StudentName, 'Arabic')
-    # test digits Number
-    numericalNumbers = classify_unlabelled_directory('./Cells/1/')
-    numericalNumbers = mapChars(numericalNumbers)
-    # detect symbols
+    # English Names
+    englishNames = ocr(EnglishName, 'eng')
+    # Digits
+    numericalNumbers = []
+    if (digitsChoice == 1):
+        print("Numbers OCR")
+    else:
+        numericalNumbers = classify_unlabelled_directory('./Cells/1/')
+        numericalNumbers = mapChars(numericalNumbers)
+    # Symbols
     symbols = runDetectCells()
 
     style_center = xlwt.easyxf("align: vert centre, horiz centre")
-    style_header = xlwt.easyxf("align: vert centre, horiz centre; font: bold true")
+    style_header = xlwt.easyxf("align: vert centre, horiz centre; font: bold true; pattern: pattern solid, fore_colour gray25")
     style_red = xlwt.easyxf("pattern: pattern solid, fore_colour red")
 
     # create excel sheet
     wb = Workbook()
     AutoFiller = wb.add_sheet('AutoFiller')
     AutoFiller.write(0, 0, 'Code', style_header)
-    AutoFiller.write(0, 1, 'StudentName', style_header)
-    AutoFiller.write(0, 2, 'EnglishName', style_header)
+    AutoFiller.write(0, 1, 'Student Name', style_header)
+    AutoFiller.write(0, 2, 'English Name', style_header)
     AutoFiller.write(0, 3, 1, style_header)
     AutoFiller.write(0, 4, 2, style_header)
     AutoFiller.write(0, 5, 3, style_header)

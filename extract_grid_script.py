@@ -161,32 +161,14 @@ def extract_grid(file):
     
 
 def run_extract_grid():
-    mypath = "datasets/dataset"
-    write_path = "grid/"
+    mypath = "Input"
+    write_path = "SingleInput/"
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
-    print(onlyfiles)
     for i in range(len(onlyfiles)):
         file = onlyfiles[i]
-        print(mypath+"/"+file)
         result_image = extract_grid(mypath+"/"+file)
         cv.imwrite(write_path+file,result_image)
     
 # extract_grid("datasets/dataset4_module1/5.jpg")
     
-run_extract_grid()
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+# run_extract_grid()
