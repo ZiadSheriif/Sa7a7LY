@@ -13,7 +13,7 @@ from xlwt import Workbook
 # from utils.commonfunctions import *
 mpl.rcParams['image.cmap'] = 'gray'
 
-EnglishName, Code, StudentName = "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/"
+EnglishNameDir, CodeDir, StudentNameDir, numericalNumbersDir = "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/", "Cells/1/"
 CODE_WIDTH, ARABIC_WIDTH, ENGLISH_WIDTH, NUMBERS_WIDTH, SYMBOL1_WIDTH, SYMBOL2_WIDTH = 4000, 10000, 11000, 3000, 3000, 3000
 
 
@@ -25,21 +25,21 @@ def runExcel(codesChoice, digitsChoice):
     # Codes
     codes = []
     if (codesChoice == 1):
-        codes = ocr(Code, 'eng')
+        codes = ocr(CodeDir, 'eng')
     else:
         for filename in os.scandir('./Cells/Code/'):
             res = segmentCodes(filename.path)
             codes.append(res)
     # Arabic Names
-    arabicNames = ocr(StudentName, 'Arabic')
+    arabicNames = ocr(StudentNameDir, 'Arabic')
     # English Names
-    englishNames = ocr(EnglishName, 'eng')
+    englishNames = ocr(EnglishNameDir, 'eng')
     # Digits
     numericalNumbers = []
     if (digitsChoice == 1):
-        print("Numbers OCR")
+        numericalNumbers = ocr(numericalNumbersDir, 'eng', "**")
     else:
-        numericalNumbers = classify_unlabelled_directory('./Cells/1/')
+        numericalNumbers = classify_unlabelled_directory(numericalNumbersDir)
         numericalNumbers = mapChars(numericalNumbers)
     # Symbols
     symbols = runDetectCells()
