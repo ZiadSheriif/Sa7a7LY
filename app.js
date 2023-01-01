@@ -60,7 +60,7 @@ app.post("/", (req, res) => {
   python.on("close", (code) => {
     res.sendFile("autoFiller.xls", options, function (err) {
       if (err) {
-        next(err);
+        console.log(err.message);
       } else {
         console.log("Sent");
       }
@@ -72,9 +72,9 @@ app.post("/bubble", (req, res) => {
   const python = spawn("python", ["BubbleSheet/bubbleScript.py"]);
 
   python.on("close", (code) => {
-    res.sendFile("BubbleSheet/answers.xls", options, function (err) {
+    res.sendFile("BubbleSheet/answers.xlsx", options, function (err) {
       if (err) {
-        next(err);
+        console.log(err.message);
       } else {
         console.log("Sent");
       }
