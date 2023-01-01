@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Modal from "react-bootstrap/Modal";
+import Alert from "react-bootstrap/Alert";
 
 export const ContentForm = styled.div`
   display: inline-block;
@@ -227,4 +228,8 @@ export const UsedCommunity = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
+`;
+export const AlertSyled = styled(Alert)`
+  width: 40%;
+  margin: auto;
 `;
