@@ -28,12 +28,12 @@ const BubbleSheet = ({ submitPost, isLoadingSubmit }) => {
    * Handle form submit
    */
   const submitForm = () => {
-    submitPost({ attachments: files});
+    submitPost({ attachments: files });
   };
   return (
     <>
       <StyledImageAndVideoFrom>
-        <DragAndDropFile files={files} setFiles={setFiles} />
+        <DragAndDropFile files={files} setFiles={setFiles} oneFile={true} />
         <SubmitButtons>
           <CancelButton variant="light">Cancel</CancelButton>
           <PostButton id="post" onClick={submitForm}>

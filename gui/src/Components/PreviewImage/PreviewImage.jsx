@@ -51,15 +51,6 @@ const PreviewImage = ({ selectedImageId, files, isLoadingDone }) => {
               data-testid="image"
             />
           </ImageContainer>
-          <LinkForm>
-            <Form.Group className="title-group mb-3">
-              <Form.Control type="text" placeholder="Add a caption..." />
-              <span>0/180</span>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Add a link..." />
-            </Form.Group>
-          </LinkForm>
         </>
       )}
     </StyledPreviewImage>
