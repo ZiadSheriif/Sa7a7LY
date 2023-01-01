@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 
 import {
@@ -23,10 +22,11 @@ const CheckInput = ({
   digitsChoice,
   setDigitChoice,
   setCodesChoice,
+  isLoadingSubmit,
 }) => {
   return (
     <>
-      <Spinner animation="border" variant="primary" />
+      {/* {isLoadingSubmit && <Spinner animation="border" variant="primary" />} */}
       <ContentForm>
         <CheckFormContainer>
           <FormCheckContainer>
@@ -35,15 +35,15 @@ const CheckInput = ({
               type="radio"
               name="radio-input-1"
               value="1"
-              id="ocrID"
+              id="ocrID-1"
               onChange={(e) => setCodesChoice(e.target.value)}
               defaultChecked={codesChoice === "1"}
             />
-            <LabelForm htmlFor="ocrID">
+            <LabelForm htmlFor="ocrID-1">
               <Ico>
                 <FcCompactCamera size={22} />
               </Ico>
-              <FormCheckLabel htmlFor="ocrID">OCR ID</FormCheckLabel>
+              <FormCheckLabel htmlFor="ocrID-1">OCR ID</FormCheckLabel>
             </LabelForm>
           </FormCheckContainer>
           <FormCheckContainer>
@@ -53,15 +53,15 @@ const CheckInput = ({
               value="2"
               aria-label="classifierID"
               name="radio-input-1"
-              id="classifierID"
+              id="classifierID-1"
               onChange={(e) => setCodesChoice(e.target.value)}
               defaultChecked={codesChoice === "2"}
             />
-            <LabelForm htmlFor="classifierID">
+            <LabelForm htmlFor="classifierID-1">
               <Ico>
                 <FcOldTimeCamera size={22} />
               </Ico>
-              <FormCheckLabel htmlFor="classifierID">
+              <FormCheckLabel htmlFor="classifierID-1">
                 Classifier ID
               </FormCheckLabel>
             </LabelForm>
@@ -75,15 +75,15 @@ const CheckInput = ({
               type="radio"
               name="radio-input-2"
               value="1"
-              id="ocrID"
+              id="ocrID-2"
               onChange={(e) => setDigitChoice(e.target.value)}
               defaultChecked={digitsChoice === "1"}
             />
-            <LabelForm htmlFor="ocrID">
+            <LabelForm htmlFor="ocrID-2">
               <Ico>
                 <FcIntegratedWebcam size={22} />
               </Ico>
-              <FormCheckLabel htmlFor="ocrID">OCR</FormCheckLabel>
+              <FormCheckLabel htmlFor="ocrID-2">OCR</FormCheckLabel>
             </LabelForm>
           </FormCheckContainer>
           <FormCheckContainer>
@@ -93,33 +93,27 @@ const CheckInput = ({
               value="2"
               aria-label="classifierID"
               name="radio-input-2"
-              id="classifierID"
+              id="classifierID-2"
               onChange={(e) => setDigitChoice(e.target.value)}
               defaultChecked={digitsChoice === "2"}
             />
-            <LabelForm htmlFor="classifierID">
+            <LabelForm htmlFor="classifierID-2">
               <Ico>
                 <FcMms size={22} />
               </Ico>
-              <FormCheckLabel htmlFor="classifierID">Classifier</FormCheckLabel>
+              <FormCheckLabel htmlFor="classifierID-2">
+                Classifier
+              </FormCheckLabel>
             </LabelForm>
           </FormCheckContainer>
         </CheckFormContainer>
       </ContentForm>
-      <ALertLoading />
+      {!isLoadingSubmit && isLoadingSubmit === "Success" && (
+        <AlertSyled variant={"success"}>
+          DONE! Output written to 'autoFiller.xls'
+        </AlertSyled>
+      )}
     </>
   );
 };
 export default CheckInput;
-
-const ALertLoading = () => {
-  return (
-    <>
-      <AlertSyled variant={"success"}>
-        DONE! Output written to 'autoFiller.xls
-      </AlertSyled>
-    </>
-  );
-};
-
-export { ALertLoading };
