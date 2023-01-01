@@ -7,6 +7,7 @@ from Symbols.symbols import runDetectCells
 from extract_grid_script import run_extract_grid
 from recognition.codes import segmentCodes
 import os
+import shutil
 
 import xlwt
 from xlwt import Workbook
@@ -86,3 +87,4 @@ def runExcel(codesChoice, digitsChoice):
                 AutoFiller.write(index, i + 4, symbols[i][index], style_center)
 
     wb.save('autoFiller.xls')
+    shutil.rmtree("Cells/")

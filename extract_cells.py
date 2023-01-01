@@ -8,7 +8,7 @@ from os.path import isfile, join
 
 mpl.rcParams['image.cmap'] = 'gray'
 
-mypath, intersections, verticalLines, horizontalLines, binaryImgs, Cells, EnglishName, Code, StudentName, Symbol_1, Symbol_2, Symbol_3, outputs = "SingleInput", "Intersections/", "verticalLines/", "horizontalLines/", "binaryImgs/", "Cells/", "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/", "Cells/1", "Cells/2", "Cells/3", "outputs/"
+mypath, intersections, verticalLines, horizontalLines, binaryImgs, Cells, EnglishName, Code, StudentName, Numbers, outputs = "SingleInput", "Intersections/", "verticalLines/", "horizontalLines/", "binaryImgs/", "Cells/", "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/", "Cells/1", "outputs/"
 
 
 def getLines(binaryImg, x):
@@ -48,7 +48,7 @@ def getIntersections(pixels):
     uniqueKeys = []
     uniqueKeys.append(keys[0])
     for i in range(1, len(keys), 1):
-        if (keys[i] - keys[i - 1] > 25):
+        if (keys[i] - keys[i - 1] > 20):
             uniqueKeys.append(keys[i])
 
     rows = []
@@ -61,7 +61,7 @@ def getIntersections(pixels):
         finalIntersections.append([])
         finalIntersections[index].append(row[0])
         for i in range(1, len(row), 1):
-            if (row[i][1] - row[i - 1][1] > 25):
+            if (row[i][1] - row[i - 1][1] > 20):
                 finalIntersections[index].append(row[i])
         index += 1
     return finalIntersections
@@ -105,6 +105,7 @@ def runGetCells(img, intersections):
     height = img.shape[0]
     width = img.shape[1]
     columnsCount = intersections.shape[1] - 1
+    createDirs(columnsCount)
     for col in range(columnsCount):
         cells[col] = []
         for row in range(intersections.shape[0] - 1):
@@ -113,16 +114,17 @@ def runGetCells(img, intersections):
             y_min = intersections[row][col][1]
             y_max = intersections[row][col + 1][1]
             cell = img[x_min:x_max, y_min:y_max]
+            border = width // 200
             if (col <= 3):
-                cell[0:10, 0:width] = 0
-                cell[-10:height, 0:width] = 0
-                cell[0:height, 0:12] = 0
-                cell[0:height, -5:width] = 0
+                cell[0:(border-2), 0:width] = 0
+                cell[-(border-2):height, 0:width] = 0
+                cell[0:height, 0:border] = 0
+                cell[0:height, -(border//2)+1:width] = 0
             else:
-                cell[0:12, 0:width] = 0
-                cell[-12:height, 0:width] = 0
-                cell[0:height, 0:12] = 0
-                cell[0:height, -12:width] = 0
+                cell[0:border, 0:width] = 0
+                cell[-border:height, 0:width] = 0
+                cell[0:height, 0:border] = 0
+                cell[0:height, -border:width] = 0
             cells[col].append(cell)
 
     labels = ["Cells/Code/", "Cells/StudentName/", "Cells/EnglishName/"]
@@ -135,11 +137,11 @@ def runGetCells(img, intersections):
                 img = cv.resize(cells[key][i], (200, 100))
                 img = cv.resize(img, None, fx=3, fy=3,
                                 interpolation=cv.INTER_CUBIC)
-            cv.imwrite(labels[key] + chr(i + 97) + ".jpg", img)
+            cv.imwrite(labels[key] + chr(i+97) + ".jpg", img)
     return columnsCount
 
 
-def createDirs():
+def createDirs(count):
     if(not os.path.exists(Cells)):
         os.makedirs(Cells)
     if(not os.path.exists(EnglishName)):
@@ -148,12 +150,11 @@ def createDirs():
         os.makedirs(Code)
     if(not os.path.exists(StudentName)):
         os.makedirs(StudentName)
-    if(not os.path.exists(Symbol_1)):
-        os.makedirs(Symbol_1)
-    if(not os.path.exists(Symbol_2)):
-        os.makedirs(Symbol_2)
-    if(not os.path.exists(Symbol_3)):
-        os.makedirs(Symbol_3)
+    if(not os.path.exists(Numbers)):
+        os.makedirs(Numbers)
+    for i in range(count - 4):
+        if(not os.path.exists(Cells + str(i + 2))):
+            os.makedirs(Cells + str(i + 2))
     if(not os.path.exists(outputs)):
         os.makedirs(outputs)
     # if(not os.path.exists(verticalLines)):
@@ -167,7 +168,6 @@ def createDirs():
 
 
 def runExtractCells():
-    createDirs()
     files = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for fileName in files:
         img, vertical, horizontal, result_image = runGetIntersections(

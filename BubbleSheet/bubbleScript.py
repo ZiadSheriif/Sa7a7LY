@@ -413,12 +413,12 @@ class Bubble:
         return res
 
 if __name__ == "__main__":
-    mypath = "dataset/Bubble_Data/four one"
+    mypath = "dataset/Bubble_Data/four"
     onlyFiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for i in range(len(onlyFiles)):
         file = onlyFiles[i]
         print("Processed "+file+"...")
-        bubble = Bubble("dataset/Bubble_Data/four one"+"/"+file,
+        bubble = Bubble(mypath+"/"+file,
                         "answers.xlsx", "five.txt")
         bubble.run()
         print(file+" Processed successfully")
