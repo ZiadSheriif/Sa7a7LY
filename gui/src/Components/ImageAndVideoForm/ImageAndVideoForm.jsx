@@ -1,6 +1,7 @@
 // Import components
 import DragAndDropFile from "../DragDropFile/DragDropFile";
 import CheckInput from "../CheckInput/CheckInput";
+import Header from "../Header/Header";
 
 // Import styled components
 import {
@@ -35,6 +36,7 @@ const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
   console.log(codesChoice, digitsChoice);
   return (
     <>
+      <Header />
       <StyledImageAndVideoFrom>
         <DragAndDropFile files={files} setFiles={setFiles} />
         <SubmitButtons>
@@ -49,6 +51,7 @@ const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
           digitsChoice={digitsChoice}
           setCodesChoice={setCodesChoice}
           setDigitChoice={setDigitChoice}
+          isLoadingSubmit={isLoadingSubmit}
         />
       </StyledImageAndVideoFrom>
     </>
