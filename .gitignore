@@ -188,6 +188,7 @@ Cells/
 
 data/
 
+node_modules
 intersections/
 verticalLines/
 horizontalLines/

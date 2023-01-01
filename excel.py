@@ -7,6 +7,7 @@ from Symbols.symbols import runDetectCells
 from extract_grid_script import run_extract_grid
 from recognition.codes import segmentCodes
 import os
+import sys
 import shutil
 
 import xlwt
@@ -44,7 +45,6 @@ def runExcel(codesChoice, digitsChoice):
         numericalNumbers = mapChars(numericalNumbers)
     # Symbols
     symbols = runDetectCells(columnsCount - 4)
-
     style_center = xlwt.easyxf("align: vert centre, horiz centre")
     style_header = xlwt.easyxf(
         "align: vert centre, horiz centre; font: bold true; pattern: pattern solid, fore_colour gray25")
@@ -88,3 +88,12 @@ def runExcel(codesChoice, digitsChoice):
 
     wb.save('autoFiller.xls')
     shutil.rmtree("Cells/")
+
+if __name__ == "__main__":
+    print("Running...")
+    choices = []
+    for i, arg in enumerate(sys.argv):
+        if (i > 0):
+            choices.append(arg)
+    runExcel(int(choices[0]), int(choices[1]))
+    
