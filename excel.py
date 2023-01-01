@@ -68,7 +68,8 @@ def runExcel(codesChoice, digitsChoice):
         AutoFiller.col(i + 4).width = SYMBOL_WIDTH
 
     for index in range(1, len(codes)):
-        AutoFiller.write(index, 0, int(codes[index]) if (type(codes[index]) == int) or codes[index].isnumeric() else codes[index], style_center)
+        AutoFiller.write(index, 0, int(codes[index]) if (type(
+            codes[index]) == int) or codes[index].isnumeric() else codes[index], style_center)
 
     for index in range(1, len(arabicNames)):
         AutoFiller.write(index, 1, arabicNames[index], style_center)
@@ -77,7 +78,8 @@ def runExcel(codesChoice, digitsChoice):
         AutoFiller.write(index, 2, englishNames[index], style_center)
 
     for index in range(1, len(numericalNumbers)):
-        AutoFiller.write(index, 3, int(numericalNumbers[index]) if (type(numericalNumbers[index]) == int) or numericalNumbers[index].isnumeric() else numericalNumbers[index], style_center)
+        AutoFiller.write(index, 3, int(numericalNumbers[index]) if (type(
+            numericalNumbers[index]) == int) or numericalNumbers[index].isnumeric() else numericalNumbers[index], style_center)
 
     for i in range(len(symbols)):
         for index in range(1, len(symbols[i])):
@@ -87,13 +89,14 @@ def runExcel(codesChoice, digitsChoice):
                 AutoFiller.write(index, i + 4, symbols[i][index], style_center)
 
     wb.save('autoFiller.xls')
+    print("Done")
     shutil.rmtree("Cells/")
 
+
 if __name__ == "__main__":
-    print("Running...")
+    # print("Running...")
     choices = []
     for i, arg in enumerate(sys.argv):
         if (i > 0):
             choices.append(arg)
     runExcel(int(choices[0]), int(choices[1]))
-    

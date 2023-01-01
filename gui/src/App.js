@@ -11,7 +11,7 @@ import CheckInput from "./Components/CheckInput/CheckInput";
 
 function App() {
   const [data, error, isLoading, dataFetch] = useFetchFunction();
-
+  console.log("data", data);
   /**
    * Function to handle submit the post
    * (Called when the user clicks on the submit button)

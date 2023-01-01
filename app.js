@@ -8,7 +8,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const port = 3000;
+const port = 8000;
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -35,7 +35,7 @@ app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("input")
 );
 
-app.get("/", (req, res) => {
+app.post("/", (req, res) => {
   let dataToSend;
 
   const codesChoice = req.body.codesChoice;

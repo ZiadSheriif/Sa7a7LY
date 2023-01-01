@@ -11,7 +11,7 @@ const submitPost = (dataFetch, post) => {
   dataFetch({
     axiosInstance: axios,
     method: "post",
-    url: "/api/listing/submit/",
+    url: "/",
     requestConfig: {
       data: post,
       headers: {
