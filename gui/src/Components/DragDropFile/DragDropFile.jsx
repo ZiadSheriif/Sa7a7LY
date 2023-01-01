@@ -96,7 +96,6 @@ function DragAndDropFile({ files, setFiles, oneFile }) {
       <PreviewImage
         selectedImageId={selectedImageId}
         files={files}
-        isLoadingDone={isLoadingDone}
       />
     </div>
   );

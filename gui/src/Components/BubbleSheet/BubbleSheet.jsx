@@ -33,7 +33,7 @@ const BubbleSheet = ({ submitPost, isLoadingSubmit }) => {
   return (
     <>
       <StyledImageAndVideoFrom>
-        <DragAndDropFile files={files} setFiles={setFiles} oneFile={true} />
+        <DragAndDropFile files={files} setFiles={setFiles} />
         <SubmitButtons>
           <CancelButton variant="light">Cancel</CancelButton>
           <PostButton id="post" onClick={submitForm}>
