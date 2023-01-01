@@ -12,7 +12,11 @@ const port = 8000;
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "Input"));
+    if (req.files?.input) {
+      cb(null, path.join(__dirname, "Input"));
+    } else if (req.files?.images) {
+      cb(null, path.join(__dirname, "BubbleSheet/dataset/Input"));
+    }
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -32,12 +36,13 @@ const fileFilter = (req, file, cb) => {
 };
 
 app.use(
-  multer({ storage: fileStorage, fileFilter: fileFilter }).single("input")
+  multer({ storage: fileStorage, fileFilter: fileFilter }).fields([
+    { name: "input", maxCount: 1 },
+    { name: "images", maxCount: 100 },
+  ])
 );
 
 app.post("/", (req, res) => {
-  let dataToSend;
-
   const codesChoice = req.body.codesChoice;
   const digitsChoice = req.body.digitsChoice;
 
@@ -47,7 +52,21 @@ app.post("/", (req, res) => {
     digitsChoice.toString(),
   ]);
 
-  res.send("Done!");
+  python.on("close", (code) => {
+    res.status(200).json({
+      message: "Success",
+    });
+  });
+});
+
+app.post("/bubble", (req, res) => {
+  const python = spawn("python", ["BubbleSheet/bubbleScript.py"]);
+
+  python.on("close", (code) => {
+    res.status(200).json({
+      message: "Success",
+    });
+  });
 });
 
 app.listen(port, () => {
