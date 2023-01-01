@@ -1,5 +1,5 @@
 # import libraries
-from recognition.knn import classify_unlabelled_directory, mapChars
+from recognition.knn import classifyUnlabelledDirectory, mapChars
 import matplotlib as mpl
 from ocr import ocr
 from extract_cells import runExtractCells
@@ -40,7 +40,7 @@ def runExcel(codesChoice, digitsChoice):
     if (digitsChoice == 1):
         numericalNumbers = ocr(numericalNumbersDir, 'hand3', "**")
     else:
-        numericalNumbers = classify_unlabelled_directory(numericalNumbersDir)
+        numericalNumbers = classifyUnlabelledDirectory(numericalNumbersDir)
         numericalNumbers = mapChars(numericalNumbers)
     # Symbols
     symbols = runDetectCells(columnsCount - 4)
