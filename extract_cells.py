@@ -114,8 +114,8 @@ def runGetCells(img, intersections):
             y_min = intersections[row][col][1]
             y_max = intersections[row][col + 1][1]
             cell = img[x_min:x_max, y_min:y_max]
-            border = width // 200
-            if (col <= 3):
+            border = int(np.ceil(width / 200))
+            if (col <= 2):
                 cell[0:(border-2), 0:width] = 0
                 cell[-(border-2):height, 0:width] = 0
                 cell[0:height, 0:border] = 0

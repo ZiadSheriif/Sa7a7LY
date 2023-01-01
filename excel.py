@@ -1,5 +1,5 @@
 # import libraries
-from recognition.knn import classify_unlabelled_directory, mapChars
+from recognition.knn import classifyUnlabelledDirectory, mapChars
 import matplotlib as mpl
 from ocr import ocr
 from extract_cells import runExtractCells
@@ -40,7 +40,7 @@ def runExcel(codesChoice, digitsChoice):
     if (digitsChoice == 1):
         numericalNumbers = ocr(numericalNumbersDir, 'hand3', "**")
     else:
-        numericalNumbers = classify_unlabelled_directory(numericalNumbersDir)
+        numericalNumbers = classifyUnlabelledDirectory(numericalNumbersDir)
         numericalNumbers = mapChars(numericalNumbers)
     # Symbols
     symbols = runDetectCells(columnsCount - 4)
@@ -68,7 +68,7 @@ def runExcel(codesChoice, digitsChoice):
         AutoFiller.col(i + 4).width = SYMBOL_WIDTH
 
     for index in range(1, len(codes)):
-        AutoFiller.write(index, 0, int(codes[index]) if codes[index].isnumeric() else codes[index], style_center)
+        AutoFiller.write(index, 0, int(codes[index]) if (type(codes[index]) == int) or codes[index].isnumeric() else codes[index], style_center)
 
     for index in range(1, len(arabicNames)):
         AutoFiller.write(index, 1, arabicNames[index], style_center)
@@ -77,7 +77,7 @@ def runExcel(codesChoice, digitsChoice):
         AutoFiller.write(index, 2, englishNames[index], style_center)
 
     for index in range(1, len(numericalNumbers)):
-        AutoFiller.write(index, 3, int(numericalNumbers[index]) if numericalNumbers[index].isnumeric() else numericalNumbers[index], style_center)
+        AutoFiller.write(index, 3, int(numericalNumbers[index]) if (type(numericalNumbers[index]) == int) or numericalNumbers[index].isnumeric() else numericalNumbers[index], style_center)
 
     for i in range(len(symbols)):
         for index in range(1, len(symbols[i])):
