@@ -4,6 +4,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const bodyParser = require("body-parser");
+const AdmZip = require("adm-zip");
 
 const app = express();
 
@@ -68,7 +69,11 @@ app.post("/", (req, res) => {
   ]);
 
   python.on("close", (code) => {
-    res.sendFile("autoFiller.xls", options, function (err) {
+    const zip = new AdmZip();
+    const outputFile = "autoFiller.zip";
+    zip.addLocalFile(path.join(__dirname, "autoFiller.xls"));
+    zip.writeZip(outputFile);
+    res.sendFile("autoFiller.zip", options, function (err) {
       if (err) {
         console.log(err.message);
       } else {
@@ -82,6 +87,10 @@ app.post("/bubble", (req, res) => {
   const python = spawn("python", ["BubbleSheet/bubbleScript.py"]);
 
   python.on("close", (code) => {
+    const zip = new AdmZip();
+    const outputFile = "answers.zip";
+    zip.addLocalFile(path.join(__dirname, "BubbleSheet", "answers.xlsx"));
+    zip.writeZip(outputFile);
     res.sendFile("BubbleSheet/answers.xlsx", options, function (err) {
       if (err) {
         console.log(err.message);

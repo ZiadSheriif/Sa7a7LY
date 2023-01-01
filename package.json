@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ZiadSheriif/Image-Processing#readme",
   "dependencies": {
+    "adm-zip": "^0.5.10",
     "body-parser": "^1.20.1",
     "express": "^4.18.2",
     "multer": "^1.4.5-lts.1",
