@@ -58,14 +58,12 @@ app.post("/", (req, res) => {
   ]);
 
   python.on("close", (code) => {
-    let data;
-    try {
-      data = fs.readFileSync("autoFiller.xls");
-    } catch (err) {
-      console.log(err.message);
-    }
-    res.status(200).json({
-      excel: data,
+    res.sendFile("autoFiller.xls", options, function (err) {
+      if (err) {
+        next(err);
+      } else {
+        console.log("Sent");
+      }
     });
   });
 });
@@ -74,14 +72,12 @@ app.post("/bubble", (req, res) => {
   const python = spawn("python", ["BubbleSheet/bubbleScript.py"]);
 
   python.on("close", (code) => {
-    let data;
-    try {
-      data = fs.readFileSync("BubbleSheet/answers.xls");
-    } catch (err) {
-      console.log(err.message);
-    }
-    res.status(200).json({
-      excel: data,
+    res.sendFile("BubbleSheet/answers.xls", options, function (err) {
+      if (err) {
+        next(err);
+      } else {
+        console.log("Sent");
+      }
     });
   });
 });
