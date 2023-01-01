@@ -24,7 +24,7 @@ import {
  * @param {Function} setFiles - Function to set files (images and videos)
  * @returns {React.Component} - Drag and drop file component (The component that allows you to drag and drop files)
  */
-function DragAndDropFile({ files, setFiles }) {
+function DragAndDropFile({ files, setFiles, oneFile }) {
   // State to store the selected image id
   const [selectedImageId, setSelectedImageId] = useState(null);
 
@@ -36,6 +36,7 @@ function DragAndDropFile({ files, setFiles }) {
     // Disable click and keydown behavior
     noClick: true,
     noKeyboard: true,
+    maxFiles: oneFile ? 1 : 1000,
     accept: {
       "image/*": [],
       "video/*": [],
@@ -80,21 +81,22 @@ function DragAndDropFile({ files, setFiles }) {
             </UploadButton>
           </DragDropParagraph>
         )}
-        <UploadedImagesContainer
-          files={files}
-          setFiles={setFiles}
-          open={open}
-          selectedImageId={selectedImageId}
-          setSelectedImageId={setSelectedImageId}
-        />
+        {!oneFile && (
+          <UploadedImagesContainer
+            files={files}
+            setFiles={setFiles}
+            open={open}
+            selectedImageId={selectedImageId}
+            setSelectedImageId={setSelectedImageId}
+            oneFile={oneFile}
+          />
+        )}
       </DragAndDropFrame>
-      {files.length > 1 && (
-        <PreviewImage
-          selectedImageId={selectedImageId}
-          files={files}
-          isLoadingDone={isLoadingDone}
-        />
-      )}
+
+      <PreviewImage
+        selectedImageId={selectedImageId}
+        files={files}
+      />
     </div>
   );
 }

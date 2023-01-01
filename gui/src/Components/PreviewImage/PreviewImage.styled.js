@@ -17,7 +17,8 @@ export const ImageContainer = styled.div`
 
 export const StyledPreviewImage = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Image = styled.img`

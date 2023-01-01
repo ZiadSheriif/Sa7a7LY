@@ -19,7 +19,7 @@ import {
  * @param {Array} files - The array of images
  * @returns {React.Component} PreviewImage component
  */
-const PreviewImage = ({ selectedImageId, files, isLoadingDone }) => {
+const PreviewImage = ({ selectedImageId, files }) => {
   // State to store the selected image
   const [image, setImage] = useState(null);
 
@@ -33,6 +33,8 @@ const PreviewImage = ({ selectedImageId, files, isLoadingDone }) => {
       // Set the selected image to image state
       setImage(selectedImage);
     }
+    if (files && files.length !== 0) setImage(files[0]);
+    // Set the selected image to image state
 
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
@@ -51,15 +53,6 @@ const PreviewImage = ({ selectedImageId, files, isLoadingDone }) => {
               data-testid="image"
             />
           </ImageContainer>
-          <LinkForm>
-            <Form.Group className="title-group mb-3">
-              <Form.Control type="text" placeholder="Add a caption..." />
-              <span>0/180</span>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Add a link..." />
-            </Form.Group>
-          </LinkForm>
         </>
       )}
     </StyledPreviewImage>

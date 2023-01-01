@@ -11,7 +11,7 @@ const submitAutoFiller = (dataFetch, post) => {
   dataFetch({
     axiosInstance: axios,
     method: "post",
-    url: "/sheet",
+    url: "/",
     requestConfig: {
       data: post,
       headers: {
