@@ -33,7 +33,6 @@ const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
   const submitForm = () => {
     submitPost({ attachments: files, codesChoice, digitsChoice });
   };
-  console.log(codesChoice, digitsChoice);
   return (
     <>
       <Header />

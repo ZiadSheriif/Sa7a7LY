@@ -13,10 +13,13 @@ import Footer from "./Components/Footer/Footer";
 
 function App() {
   const [data, error, isLoading, dataFetch] = useFetchFunction();
+  const [dataBubble, errorBubble, isLoadingBubble, dataFetchBubble] =
+    useFetchFunction();
   /**
    * Function to handle submit the post
    * (Called when the user clicks on the submit button)
    */
+  console.log(data);
   const handleSubmit = ({
     attachments = [],
     codesChoice,
@@ -33,9 +36,9 @@ function App() {
   const handleSubmitBubble = ({ attachments = [] } = {}) => {
     var bodyFormData = new FormData();
     attachments.forEach((element) => {
-      bodyFormData.append("input", element, element.path);
+      bodyFormData.append("images", element, element.path);
     });
-    submitBubble(dataFetch, bodyFormData);
+    submitBubble(dataFetchBubble, bodyFormData);
   };
   return (
     <div className="App">
@@ -46,7 +49,7 @@ function App() {
         />
         <BubbleSheet
           submitPost={handleSubmitBubble}
-          isLoadingSubmit={isLoading}
+          isLoadingSubmit={isLoadingBubble}
         />
       </ThemeProvider>
       <Footer />

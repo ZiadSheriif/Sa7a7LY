@@ -7,10 +7,15 @@ const Header = () => {
     <Navbar bg="dark" variant="dark">
       <Container>
         <Navbar.Brand
-          style={{ alignContent: "center", display: "flex" }}
-          href="#Auto-Fiiler"
+          style={{
+            alignContent: "center",
+            display: "flex",
+            fontFamily: "ui-serif",
+            fontSize: "40px",
+          }}
+          href="#Sa7a7LY"
         >
-          Auto Filler
+          Sa7a7LY
         </Navbar.Brand>
       </Container>
     </Navbar>

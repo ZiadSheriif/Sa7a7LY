@@ -415,8 +415,9 @@ class Bubble:
             print("Error!")
         return res
 
+
 if __name__ == "__main__":
-    mypath = "./BubbleSheet/dataset/Bubble_Data/four"
+    mypath = "./BubbleSheet/dataset/Bubble_Data/Input"
     onlyFiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for i in range(len(onlyFiles)):
         file = onlyFiles[i]
