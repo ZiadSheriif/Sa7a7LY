@@ -12,12 +12,12 @@ import {
   FcIntegratedWebcam,
   FcOldTimeCamera,
   FcCompactCamera,
-  FcMms
+  FcMms,
 } from "react-icons/fc";
 
-const CheckInput = () => {
-  const [currentCode, setCurrentCode] = useState("ocrID");
-  const [numericalValue, setNumericalValue] = useState("ocrID");
+const CheckInput = ({ codesChoice,digitsChoice,setDigitChoice, setCodesChoice }) => {
+  // const [currentCode, setCurrentCode] = useState("1");
+  // const [numericalValue, setNumericalValue] = useState("1");
 
   return (
     <ContentForm>
@@ -27,10 +27,10 @@ const CheckInput = () => {
             className="form-check-input"
             type="radio"
             name="radio-input-1"
-            value="ocrID"
+            value="1"
             id="ocrID"
-            onChange={(e) => setCurrentCode(e.target.value)}
-            defaultChecked={currentCode === "ocrID"}
+            onChange={(e) => setCodesChoice(e.target.value)}
+            defaultChecked={codesChoice === "1"}
           />
           <LabelForm htmlFor="ocrID">
             <Ico>
@@ -43,12 +43,12 @@ const CheckInput = () => {
           <input
             className="form-check-input"
             type="radio"
-            value="classifierID"
+            value="2"
             aria-label="classifierID"
             name="radio-input-1"
             id="classifierID"
-            onChange={(e) => setCurrentCode(e.target.value)}
-            defaultChecked={currentCode === "classifierID"}
+            onChange={(e) => setCodesChoice(e.target.value)}
+            defaultChecked={codesChoice === "2"}
           />
           <LabelForm htmlFor="classifierID">
             <Ico>
@@ -67,10 +67,10 @@ const CheckInput = () => {
             className="form-check-input"
             type="radio"
             name="radio-input-2"
-            value="ocrID"
+            value="1"
             id="ocrID"
-            onChange={(e) => setNumericalValue(e.target.value)}
-            defaultChecked={numericalValue === "ocrID"}
+            onChange={(e) => setDigitChoice(e.target.value)}
+            defaultChecked={digitsChoice === "1"}
           />
           <LabelForm htmlFor="ocrID">
             <Ico>
@@ -83,12 +83,12 @@ const CheckInput = () => {
           <input
             className="form-check-input"
             type="radio"
-            value="classifierID"
+            value="2"
             aria-label="classifierID"
             name="radio-input-2"
             id="classifierID"
-            onChange={(e) => setNumericalValue(e.target.value)}
-            defaultChecked={numericalValue === "classifierID"}
+            onChange={(e) => setDigitChoice(e.target.value)}
+            defaultChecked={digitsChoice === "2"}
           />
           <LabelForm htmlFor="classifierID">
             <Ico>

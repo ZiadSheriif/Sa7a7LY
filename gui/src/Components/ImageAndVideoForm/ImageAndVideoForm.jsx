@@ -1,5 +1,6 @@
 // Import components
 import DragAndDropFile from "../DragDropFile/DragDropFile";
+import CheckInput from "../CheckInput/CheckInput";
 
 // Import styled components
 import {
@@ -22,8 +23,8 @@ import { Spinner } from "react-bootstrap";
  */
 const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
   const [files, setFiles] = useState([]);
-  const [codesChoice, setCodesChoice] = useState("");
-  const [digitsChoice, setDigitChoice] = useState("");
+  const [codesChoice, setCodesChoice] = useState("1");
+  const [digitsChoice, setDigitChoice] = useState("1");
 
   /**
    * Handle form submit
@@ -31,6 +32,7 @@ const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
   const submitForm = () => {
     submitPost({ attachments: files, codesChoice, digitsChoice });
   };
+  console.log(codesChoice, digitsChoice);
   return (
     <>
       <StyledImageAndVideoFrom>
@@ -42,6 +44,12 @@ const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
             {isLoadingSubmit && <Spinner animation="border" variant="light" />}
           </PostButton>
         </SubmitButtons>
+        <CheckInput
+          codesChoice={codesChoice}
+          digitsChoice={digitsChoice}
+          setCodesChoice={setCodesChoice}
+          setDigitChoice={setDigitChoice}
+        />
       </StyledImageAndVideoFrom>
     </>
   );
