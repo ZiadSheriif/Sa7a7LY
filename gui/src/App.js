@@ -19,7 +19,7 @@ function App() {
    * Function to handle submit the post
    * (Called when the user clicks on the submit button)
    */
-  console.log(data);
+  console.log(data, dataBubble);
   const handleSubmit = ({
     attachments = [],
     codesChoice,
