@@ -7,6 +7,7 @@ import "./App.css";
 import ImagesAndVideosTab from "./Components/ImagesAndVideosTab/ImagesAndVideosTab";
 import submitPost from "./Services/submitPost";
 import useFetchFunction from "./Hooks/useFetchFunction";
+import CheckInput from "./Components/CheckInput/CheckInput";
 
 function App() {
   const [data, error, isLoading, dataFetch] = useFetchFunction();
@@ -38,6 +39,7 @@ function App() {
           submitPost={handleSubmit}
           isLoadingSubmit={isLoading}
         />
+        <CheckInput />
       </ThemeProvider>
     </div>
   );

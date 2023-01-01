@@ -4,11 +4,11 @@ const multer = require("multer");
 const path = require("path");
 const bodyParser = require("body-parser");
 
+const app = express();
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const port = 3000;
-
-const app = express();
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
