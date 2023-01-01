@@ -8,6 +8,7 @@ import {
   StyledImageAndVideoFrom,
   CancelButton,
   SubmitButtons,
+  HeadStyled,
 } from "./BubbleSheet.styled";
 
 // Import hooks
@@ -34,6 +35,9 @@ const BubbleSheet = ({ submitPost, isLoadingSubmit }) => {
     <>
       <StyledImageAndVideoFrom>
         <DragAndDropFile files={files} setFiles={setFiles} />
+        <div>
+          <HeadStyled>Bubble Sheet</HeadStyled>
+        </div>
         <SubmitButtons>
           <CancelButton variant="light">Cancel</CancelButton>
           <PostButton id="post" onClick={submitForm}>

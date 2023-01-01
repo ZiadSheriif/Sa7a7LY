@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 
 export const ContentForm = styled.div`
-  display: inline-block;
+  display: flex;
 `;
 export const ModalStyled = styled(Modal)`
   .btn-close:focus {
@@ -59,7 +59,7 @@ export const CheckFormContainer = styled.div`
   h6 {
     margin-bottom: 20px !important;
   }
-  display: inline-block;
+  display: flex;
   margin-left: 30px;
 `;
 
@@ -79,11 +79,11 @@ export const LabelForm = styled.label`
 
 export const FormCheckContainer = styled.div`
   display: flex;
-  margin-bottom: 16px;
+  margin-left: 16px;
 
   .form-check-input {
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
     margin-top: 0.2em !important;
 
     :checked {
@@ -108,10 +108,11 @@ export const FormInput = styled.input`
   }
 `;
 export const FormCheckLabel = styled.label`
-  font-size: 14px;
+  font-size: 16px;
   line-height: 18px;
   font-weight: 500;
   display: flex;
+  font-family: sans-serif;
   vertical-align: top;
   padding-left: 2px;
   margin-top: -1px;
@@ -232,4 +233,7 @@ export const UsedCommunity = styled.div`
 export const AlertSyled = styled(Alert)`
   width: 40%;
   margin: auto;
+`;
+export const BodyStyled = styled.div`
+  margin-top: 7px;
 `;

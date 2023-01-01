@@ -9,6 +9,7 @@ import {
   StyledImageAndVideoFrom,
   CancelButton,
   SubmitButtons,
+  HeadStyled,
 } from "./ImageAndVideoForm.styled";
 
 // Import hooks
@@ -38,6 +39,9 @@ const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
       <Header />
       <StyledImageAndVideoFrom>
         <DragAndDropFile files={files} setFiles={setFiles} oneFile={true} />
+        <div>
+          <HeadStyled>Auto Filler</HeadStyled>
+        </div>
         <SubmitButtons>
           <CancelButton variant="light">Cancel</CancelButton>
           <PostButton id="post" onClick={submitForm}>

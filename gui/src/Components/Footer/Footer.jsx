@@ -6,6 +6,13 @@ import {
   MDBCol,
   MDBIcon,
 } from "mdb-react-ui-kit";
+import {
+  AiOutlineTwitter,
+  AiFillInstagram,
+  AiFillGithub,
+  AiFillLinkedin,
+} from "react-icons/ai";
+import { BsFacebook } from "react-icons/bs";
 
 function Footer() {
   return (
@@ -16,23 +23,20 @@ function Footer() {
         </div>
 
         <div>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="facebook-f" />
+          <a href="#1" className="me-4 text-reset">
+            <AiOutlineTwitter size={23} />
           </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="twitter" />
+          <a href="#2" className="me-4 text-reset">
+            <BsFacebook size={23} />
           </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="google" />
+          <a href="#3" className="me-4 text-reset">
+            <AiFillInstagram size={23} />
           </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="instagram" />
+          <a href="#4" className="me-4 text-reset">
+            <AiFillGithub size={23} />
           </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="linkedin" />
-          </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon fab icon="github" />
+          <a href="#5" className="me-4 text-reset">
+            <AiFillLinkedin size={23} />
           </a>
         </div>
       </section>
@@ -43,7 +47,7 @@ function Footer() {
             <MDBCol md="3" lg="4" xl="3" className="mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">
                 <MDBIcon icon="gem" className="me-3" />
-                Company name
+                Sa7a7LY Company
               </h6>
               <p>
                 Here you can use rows and columns to organize your footer
@@ -53,25 +57,34 @@ function Footer() {
             </MDBCol>
 
             <MDBCol md="2" lg="2" xl="2" className="mx-auto mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">Products</h6>
+              <h6 className="text-uppercase fw-bold mb-4">GitHubs</h6>
               <p>
-                <a href="#!" className="text-reset">
-                  Angular
+                <a href="https://github.com/ZiadSheriif" className="text-reset">
+                  ZiadSheriif
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
-                  React
+                <a
+                  href="https://github.com/Abd-ELrahmanHamza"
+                  className="text-reset"
+                >
+                  Abd-ELrahmanHamza
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
-                  Vue
+                <a
+                  href="https://github.com/abdelrahman0123"
+                  className="text-reset"
+                >
+                  abdelrahman0123
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
-                  Laravel
+                <a
+                  href="https://github.com/Ahmedsabry11"
+                  className="text-reset"
+                >
+                  Ahmedsabry11
                 </a>
               </p>
             </MDBCol>
@@ -108,10 +121,10 @@ function Footer() {
               </p>
               <p>
                 <MDBIcon icon="envelope" className="me-3" />
-                info@example.com
+                Sa7a7LY@gmail.com
               </p>
               <p>
-                <MDBIcon icon="phone" className="me-3" /> + 01 234 567 88
+                <MDBIcon icon="phone" className="me-3" /> + 01146188908
               </p>
               <p>
                 <MDBIcon icon="print" className="me-3" /> + 01 234 567 89
@@ -125,9 +138,9 @@ function Footer() {
         className="text-center p-4"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       >
-        © 2021 Copyright:
-        <a className="text-reset fw-bold" href="https://mdbootstrap.com/">
-          MDBootstrap.com
+        © 2023 Copyright:
+        <a className="text-reset fw-bold" href="https://Sa7a7LY.com/">
+          Sa7a7LY.com
         </a>
       </div>
     </MDBFooter>

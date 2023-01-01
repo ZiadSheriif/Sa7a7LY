@@ -86,3 +86,7 @@ export const PostButton = styled.button`
       disabled ? theme.color.muted : theme.button.hoverBlue};
   }
 `;
+export const HeadStyled = styled.h2`
+  font-family: ui-serif;
+  font-size: 40px;
+`;
