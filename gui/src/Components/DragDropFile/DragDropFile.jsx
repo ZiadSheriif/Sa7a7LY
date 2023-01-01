@@ -8,6 +8,8 @@ import { useDropzone } from "react-dropzone";
 import PreviewImage from "../PreviewImage/PreviewImage";
 import UploadedImagesContainer from "../UploadedImagesContainer/UploadedImagesContainer";
 
+import { saveAs } from "file-saver";
+
 // Import styled components
 import {
   DragAndDropFrame,
@@ -49,6 +51,7 @@ function DragAndDropFile({ files, setFiles }) {
               src: x.target.result,
               uploadDate: new Date().getTime(),
             });
+
             if (reader.readyState === FileReader.DONE)
               setIsLoadingDone(() => !isLoadingDone);
           };

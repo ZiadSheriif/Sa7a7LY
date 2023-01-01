@@ -5,12 +5,30 @@ import lightTheme from "./Theme/lightTheme";
 import { ThemeProvider } from "styled-components";
 import "./App.css";
 import ImagesAndVideosTab from "./Components/ImagesAndVideosTab/ImagesAndVideosTab";
+import submitPost from "./Services/submitPost";
+import useFetchFunction from "./Hooks/useFetchFunction";
 
 function App() {
+  const [data, error, isLoading, dataFetch] = useFetchFunction();
+
+  /**
+   * Function to handle submit the post
+   * (Called when the user clicks on the submit button)
+   */
+  const handleSubmit = ({ attachments = [] } = {}) => {
+    var bodyFormData = new FormData();
+    attachments.forEach((element) => {
+      bodyFormData.append("attachments", element, element.path);
+    });
+    submitPost(dataFetch, bodyFormData);
+  };
   return (
     <div className="App">
       <ThemeProvider theme={lightTheme}>
-        <ImagesAndVideosTab />
+        <ImagesAndVideosTab
+          submitPost={handleSubmit}
+          isLoadingSubmit={isLoading}
+        />
       </ThemeProvider>
     </div>
   );
