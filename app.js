@@ -41,15 +41,13 @@ app.post("/", (req, res) => {
   const codesChoice = req.body.codesChoice;
   const digitsChoice = req.body.digitsChoice;
 
-  const python = spawn("python", ["excel.py", codesChoice, digitsChoice]);
+  const python = spawn("python", [
+    "excel.py",
+    codesChoice.toString(),
+    digitsChoice.toString(),
+  ]);
 
-  python.stdout.on("data", function (data) {
-    dataToSend = data.toString();
-  });
-
-  python.on("close", (code) => {
-    res.send(dataToSend);
-  });
+  res.send("Done!");
 });
 
 app.listen(port, () => {

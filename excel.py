@@ -7,6 +7,7 @@ from Symbols.symbols import runDetectCells
 from extract_grid_script import run_extract_grid
 from recognition.codes import segmentCodes
 import os
+import glob
 import sys
 import shutil
 
@@ -18,6 +19,10 @@ mpl.rcParams['image.cmap'] = 'gray'
 EnglishNameDir, CodeDir, StudentNameDir, numericalNumbersDir = "Cells/EnglishName/", "Cells/Code/", "Cells/StudentName/", "Cells/1/"
 CODE_WIDTH, ARABIC_WIDTH, ENGLISH_WIDTH, NUMBERS_WIDTH, SYMBOL_WIDTH = 4000, 10000, 11000, 3000, 3000
 
+def cleanup():
+    shutil.rmtree("Cells/")
+    shutil.rmtree("Input/")
+    os.makedirs("Input/")
 
 def runExcel(codesChoice, digitsChoice):
     # Extract grid from table
@@ -89,12 +94,9 @@ def runExcel(codesChoice, digitsChoice):
                 AutoFiller.write(index, i + 4, symbols[i][index], style_center)
 
     wb.save('autoFiller.xls')
-    print("Done")
-    shutil.rmtree("Cells/")
-
+    cleanup()
 
 if __name__ == "__main__":
-    # print("Running...")
     choices = []
     for i, arg in enumerate(sys.argv):
         if (i > 0):
