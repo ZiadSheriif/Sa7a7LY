@@ -21,6 +21,8 @@ from utils.commonfunctions import *
 #import pandas
 import pandas as pd
 
+import os
+import shutil
 from os import listdir
 from os.path import isfile, join
 
@@ -421,4 +423,6 @@ if __name__ == "__main__":
         bubble = Bubble(mypath+"/"+file,
                         "answers.xlsx", "five.txt")
         bubble.run()
+        shutil.rmtree("dataset/Input/")
+        os.makedirs("dataset/Input/")
         print(file+" Processed successfully")

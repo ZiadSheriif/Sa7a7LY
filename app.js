@@ -10,6 +10,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const port = 8000;
 
+const options = {
+  root: path.join(__dirname),
+};
+
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (req.files?.input) {
@@ -53,8 +57,12 @@ app.post("/", (req, res) => {
   ]);
 
   python.on("close", (code) => {
-    res.status(200).json({
-      message: "Success",
+    res.sendFile("autoFiller.xls", options, function (err) {
+      if (err) {
+        next(err);
+      } else {
+        console.log("Sent:", fileName);
+      }
     });
   });
 });
@@ -63,8 +71,12 @@ app.post("/bubble", (req, res) => {
   const python = spawn("python", ["BubbleSheet/bubbleScript.py"]);
 
   python.on("close", (code) => {
-    res.status(200).json({
-      message: "Success",
+    res.sendFile("BubbleSheet/answers.xls", options, function (err) {
+      if (err) {
+        next(err);
+      } else {
+        console.log("Sent:", fileName);
+      }
     });
   });
 });
