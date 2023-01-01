@@ -91,7 +91,7 @@ app.post("/bubble", (req, res) => {
     const outputFile = "answers.zip";
     zip.addLocalFile(path.join(__dirname, "BubbleSheet", "answers.xlsx"));
     zip.writeZip(outputFile);
-    res.sendFile("BubbleSheet/answers.xlsx", options, function (err) {
+    res.sendFile("answers.zip", options, function (err) {
       if (err) {
         console.log(err.message);
       } else {
