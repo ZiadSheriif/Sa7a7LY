@@ -15,11 +15,20 @@ function App() {
    * Function to handle submit the post
    * (Called when the user clicks on the submit button)
    */
-  const handleSubmit = ({ attachments = [] } = {}) => {
+  const handleSubmit = ({
+    attachments = [],
+    codesChoice,
+    digitsChoice,
+  } = {}) => {
+    console.log("input", attachments);
+    console.log("codesChoice", codesChoice);
+    console.log("digitsChoice", digitsChoice);
     var bodyFormData = new FormData();
     attachments.forEach((element) => {
-      bodyFormData.append("attachments", element, element.path);
+      bodyFormData.append("input", element, element.path);
     });
+    bodyFormData.append("codesChoice", codesChoice);
+    bodyFormData.append("digitsChoice", digitsChoice);
     submitPost(dataFetch, bodyFormData);
   };
   return (

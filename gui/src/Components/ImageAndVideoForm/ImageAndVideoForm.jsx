@@ -22,11 +22,14 @@ import { Spinner } from "react-bootstrap";
  */
 const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
   const [files, setFiles] = useState([]);
+  const [codesChoice, setCodesChoice] = useState("");
+  const [digitsChoice, setDigitChoice] = useState("");
+
   /**
    * Handle form submit
    */
   const submitForm = () => {
-    submitPost({ attachments: files });
+    submitPost({ attachments: files, codesChoice, digitsChoice });
   };
   return (
     <>
