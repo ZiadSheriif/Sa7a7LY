@@ -40,6 +40,16 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+app.use((_req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,POST,PUT,DELETE,PATCH,OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  next();
+});
+
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).fields([
     { name: "input", maxCount: 1 },
