@@ -69,10 +69,14 @@ app.post("/", (req, res) => {
   ]);
 
   python.on("close", (code) => {
-    const zip = new AdmZip();
-    const outputFile = "autoFiller.zip";
-    zip.addLocalFile(path.join(__dirname, "autoFiller.xls"));
-    zip.writeZip(outputFile);
+    try {
+      const zip = new AdmZip();
+      const outputFile = "autoFiller.zip";
+      zip.addLocalFile(path.join(__dirname, "autoFiller.xls"));
+      zip.writeZip(outputFile);
+    } catch (err) {
+      console.log(err.message);
+    }
     res.sendFile("autoFiller.zip", options, function (err) {
       if (err) {
         console.log(err.message);
@@ -87,10 +91,14 @@ app.post("/bubble", (req, res) => {
   const python = spawn("python", ["BubbleSheet/bubbleScript.py"]);
 
   python.on("close", (code) => {
-    const zip = new AdmZip();
-    const outputFile = "answers.zip";
-    zip.addLocalFile(path.join(__dirname, "BubbleSheet", "answers.xlsx"));
-    zip.writeZip(outputFile);
+    try {
+      const zip = new AdmZip();
+      const outputFile = "answers.zip";
+      zip.addLocalFile(path.join(__dirname, "BubbleSheet", "answers.xlsx"));
+      zip.writeZip(outputFile);
+    } catch (err) {
+      console.log(err.message);
+    }
     res.sendFile("answers.zip", options, function (err) {
       if (err) {
         console.log(err.message);
