@@ -7,11 +7,11 @@ import axios from "../API/axios";
  * @param {Function} dataFetch - The function to make the request
  * @param {Object} post - The post data
  */
-const submitPost = (dataFetch, post) => {
+const submitBubble = (dataFetch, post) => {
   dataFetch({
     axiosInstance: axios,
     method: "post",
-    url: "/",
+    url: "/bubble",
     requestConfig: {
       data: post,
       headers: {
@@ -22,4 +22,4 @@ const submitPost = (dataFetch, post) => {
   });
 };
 
-export default submitPost;
+export default submitBubble;

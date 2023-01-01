@@ -5,12 +5,14 @@ import lightTheme from "./Theme/lightTheme";
 import { ThemeProvider } from "styled-components";
 import "./App.css";
 import ImagesAndVideosTab from "./Components/ImagesAndVideosTab/ImagesAndVideosTab";
-import submitPost from "./Services/submitPost";
+import submitAutoFiller from "./Services/submitAutoFiller";
 import useFetchFunction from "./Hooks/useFetchFunction";
+import BubbleSheet from "./Components/BubbleSheet/BubbleSheet";
+import submitBubble from "./Services/submitBubble";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   const [data, error, isLoading, dataFetch] = useFetchFunction();
-  console.log("data", data);
   /**
    * Function to handle submit the post
    * (Called when the user clicks on the submit button)
@@ -20,16 +22,20 @@ function App() {
     codesChoice,
     digitsChoice,
   } = {}) => {
-    console.log("input", attachments);
-    console.log("codesChoice", codesChoice);
-    console.log("digitsChoice", digitsChoice);
     var bodyFormData = new FormData();
     attachments.forEach((element) => {
       bodyFormData.append("input", element, element.path);
     });
     bodyFormData.append("codesChoice", codesChoice);
     bodyFormData.append("digitsChoice", digitsChoice);
-    submitPost(dataFetch, bodyFormData);
+    submitAutoFiller(dataFetch, bodyFormData);
+  };
+  const handleSubmitBubble = ({ attachments = [] } = {}) => {
+    var bodyFormData = new FormData();
+    attachments.forEach((element) => {
+      bodyFormData.append("input", element, element.path);
+    });
+    submitBubble(dataFetch, bodyFormData);
   };
   return (
     <div className="App">
@@ -38,7 +44,12 @@ function App() {
           submitPost={handleSubmit}
           isLoadingSubmit={isLoading}
         />
+        <BubbleSheet
+          submitPost={handleSubmitBubble}
+          isLoadingSubmit={isLoading}
+        />
       </ThemeProvider>
+      <Footer />
     </div>
   );
 }
