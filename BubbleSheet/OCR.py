@@ -108,6 +108,6 @@ class OCR:
         return dimensions_contours, img
 
     def load_pickle(self) -> dict:
-        a_file = open("./data.pkl", "rb")
+        a_file = open("./BubbleSheet/data.pkl", "rb")
         model = pickle.load(a_file)
         return model

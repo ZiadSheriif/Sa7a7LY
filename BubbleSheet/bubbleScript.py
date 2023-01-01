@@ -28,7 +28,8 @@ from os.path import isfile, join
 
 import OCR
 
-debug = True
+debug = False
+# debug = True
 
 
 class Bubble:
@@ -415,14 +416,14 @@ class Bubble:
         return res
 
 if __name__ == "__main__":
-    mypath = "dataset/Bubble_Data/four"
+    mypath = "./BubbleSheet/dataset/Bubble_Data/four"
     onlyFiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     for i in range(len(onlyFiles)):
         file = onlyFiles[i]
         print("Processed "+file+"...")
         bubble = Bubble(mypath+"/"+file,
-                        "answers.xlsx", "five.txt")
+                        "./BubbleSheet/answers.xlsx", "./BubbleSheet/five.txt")
         bubble.run()
-        shutil.rmtree("dataset/Input/")
-        os.makedirs("dataset/Input/")
+        shutil.rmtree("./BubbleSheet/dataset/Input/")
+        os.makedirs("./BubbleSheet/dataset/Input/")
         print(file+" Processed successfully")
