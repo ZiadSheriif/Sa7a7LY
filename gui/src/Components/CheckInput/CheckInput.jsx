@@ -1,5 +1,3 @@
-import Spinner from "react-bootstrap/Spinner";
-
 import {
   CheckFormContainer,
   FormCheckContainer,
@@ -23,7 +21,6 @@ const CheckInput = ({
   digitsChoice,
   setDigitChoice,
   setCodesChoice,
-  isLoadingSubmit,
 }) => {
   return (
     <>
@@ -44,7 +41,9 @@ const CheckInput = ({
                 <Ico>
                   <FcCompactCamera size={30} />
                 </Ico>
-                <FormCheckLabel htmlFor="ocrID-1">OCR ID</FormCheckLabel>
+                <FormCheckLabel htmlFor="ocrID-1">
+                  Student ID OCR
+                </FormCheckLabel>
               </LabelForm>
             </FormCheckContainer>
             <FormCheckContainer>
@@ -63,7 +62,7 @@ const CheckInput = ({
                   <FcOldTimeCamera size={30} />
                 </Ico>
                 <FormCheckLabel htmlFor="classifierID-1">
-                  Classifier ID
+                  Student ID Classifier
                 </FormCheckLabel>
               </LabelForm>
             </FormCheckContainer>
@@ -84,7 +83,7 @@ const CheckInput = ({
                 <Ico>
                   <FcPicture size={30} />
                 </Ico>
-                <FormCheckLabel htmlFor="ocrID-2">OCR</FormCheckLabel>
+                <FormCheckLabel htmlFor="ocrID-2">Numbers OCR</FormCheckLabel>
               </LabelForm>
             </FormCheckContainer>
             <FormCheckContainer>
@@ -103,18 +102,17 @@ const CheckInput = ({
                   <FcMms size={30} />
                 </Ico>
                 <FormCheckLabel htmlFor="classifierID-2">
-                  Classifier
+                  Numbers Classifier
                 </FormCheckLabel>
               </LabelForm>
             </FormCheckContainer>
           </CheckFormContainer>
         </BodyStyled>
       </ContentForm>
-      {!isLoadingSubmit && isLoadingSubmit === "Success" && (
-        <AlertSyled variant={"success"}>
-          DONE! Output written to 'autoFiller.xls'
-        </AlertSyled>
-      )}
+
+      {/* <AlertSyled variant={"success"}>
+        DONE! Output written to 'autoFiller.xls'
+      </AlertSyled> */}
     </>
   );
 };

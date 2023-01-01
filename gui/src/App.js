@@ -10,6 +10,8 @@ import useFetchFunction from "./Hooks/useFetchFunction";
 import BubbleSheet from "./Components/BubbleSheet/BubbleSheet";
 import submitBubble from "./Services/submitBubble";
 import Footer from "./Components/Footer/Footer";
+import { useEffect } from "react";
+import { saveAs } from "file-saver";
 
 function App() {
   const [data, error, isLoading, dataFetch] = useFetchFunction();
@@ -40,6 +42,22 @@ function App() {
     });
     submitBubble(dataFetchBubble, bodyFormData);
   };
+
+  useEffect(() => {
+    if (data) {
+      saveAs(new Blob([data]), "mohey.xls");
+      // var a = document.createElement("a");
+      // a.href = window.URL.createObjectURL(new Blob([data]));
+      // a.download = "test.xls";
+      // a.click();
+    }
+  }, [data]);
+  useEffect(() => {
+    if (dataBubble) {
+      saveAs(new Blob([dataBubble]), "mangaa.xls");
+    }
+  }, [dataBubble]);
+
   return (
     <div className="App">
       <ThemeProvider theme={lightTheme}>

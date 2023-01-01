@@ -54,7 +54,6 @@ const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
           digitsChoice={digitsChoice}
           setCodesChoice={setCodesChoice}
           setDigitChoice={setDigitChoice}
-          isLoadingSubmit={isLoadingSubmit}
         />
       </StyledImageAndVideoFrom>
     </>

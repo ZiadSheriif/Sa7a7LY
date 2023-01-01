@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
  */
 const useFetchFunction = () => {
   // The response state
-  const [response, setResponse] = useState([]);
+  const [response, setResponse] = useState(null);
   // The error state
   const [error, setError] = useState("");
   // The loading state (used to show something like a spinner)
