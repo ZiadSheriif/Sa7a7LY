@@ -93,7 +93,9 @@ function DragAndDropFile({ files, setFiles, oneFile }) {
         )}
       </DragAndDropFrame>
 
-      <PreviewImage selectedImageId={selectedImageId} files={files} />
+      {files && files.length !== 0 && (
+        <PreviewImage selectedImageId={selectedImageId} files={files} />
+      )}
     </div>
   );
 }

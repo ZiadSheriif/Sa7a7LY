@@ -57,7 +57,7 @@ def prepareData(dataPath, files, label):
 def train(x_train, y_train):
     list_hog_fd = []
     for img in x_train:
-        fd = hog(resize(img, (128*2, 64*2)), orientations=9, pixels_per_cell=(14, 14),
+        fd = hog(resize(img, (128*4, 64*4)), orientations=9, pixels_per_cell=(14, 14),
                  cells_per_block=(1, 1), visualize=False)
         list_hog_fd.append(fd)
 
@@ -76,7 +76,7 @@ def knnScore(x_test, y_test):
     knn = pickle.load(open(filename, 'rb'))
     list_hog_fd = []
     for img in x_test:
-        fd = hog(resize(img, (128*2, 64*2)), orientations=9, pixels_per_cell=(14, 14),
+        fd = hog(resize(img, (128*4, 64*4)), orientations=9, pixels_per_cell=(14, 14),
                  cells_per_block=(1, 1), visualize=False)
         list_hog_fd.append(fd)
 
@@ -91,7 +91,7 @@ def knnPredict(img):
     filename = './Symbols/model.sav'
     # load the model from disk
     knn = pickle.load(open(filename, 'rb'))
-    fd = hog(resize(img, (128*2, 64*2)), orientations=9, pixels_per_cell=(14, 14),
+    fd = hog(resize(img, (128*4, 64*4)), orientations=9, pixels_per_cell=(14, 14),
              cells_per_block=(1, 1), visualize=False)
     expected = knn.predict(fd.reshape(1, -1))
     return expected[0]
