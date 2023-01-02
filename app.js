@@ -48,8 +48,6 @@ app.use((_req, res, next) => {
     "GET,POST,PUT,DELETE,PATCH,OPTIONS"
   );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
-  res.setHeader("Content-Type", "application/zip");
-
   next();
 });
 
@@ -79,7 +77,8 @@ app.post("/", (req, res) => {
     } catch (err) {
       console.log(err.message);
     }
-    res.sendFile("autoFiller.zip", options, function (err) {
+    res.setHeader("Content-Type", "application/vnd.ms-excel");
+    res.sendFile("autoFiller.xls", options, function (err) {
       if (err) {
         console.log(err.message);
       } else {
@@ -101,7 +100,11 @@ app.post("/bubble", (req, res) => {
     } catch (err) {
       console.log(err.message);
     }
-    res.sendFile("answers.zip", options, function (err) {
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    res.sendFile("BubbleSheet/answers.xlsx", options, function (err) {
       if (err) {
         console.log(err.message);
       } else {

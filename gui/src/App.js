@@ -45,12 +45,12 @@ function App() {
 
   useEffect(() => {
     if (data) {
-      saveAs(new File([data], "autoFiller.zip"), "moheyyAuto.zip");
+      saveAs(new File([data], "autoFiller.xls"), "AutoFiller.xls");
     }
   }, [data]);
   useEffect(() => {
     if (dataBubble) {
-      saveAs(new File([dataBubble], "answers.zip"), "mangaa.zip");
+      saveAs(new File([dataBubble], "answers.xlsx"), "BubbleSheet.xlsx");
     }
   }, [dataBubble]);
 
