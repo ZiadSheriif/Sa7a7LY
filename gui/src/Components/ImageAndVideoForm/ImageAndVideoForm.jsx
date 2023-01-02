@@ -19,9 +19,9 @@ import { useState, useRef } from "react";
 import { Spinner } from "react-bootstrap";
 
 /**
- * Image and video form component (The form that appears when you click on the image and video tab in main section)
+ * Image and video form component
  * @param {Function} submitPost - Function to submit the post
- * @returns {React.Component} - Image and video form component (The form that appears when you click on the image and video tab in main section)
+ * @returns {React.Component} - Image and video form component
  */
 const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
   const [files, setFiles] = useState([]);
@@ -43,7 +43,9 @@ const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
           <HeadStyled>Auto-Filler</HeadStyled>
         </div>
         <SubmitButtons>
-          <CancelButton variant="light">Cancel</CancelButton>
+          <CancelButton variant="light" onClick={() => setFiles([])}>
+            Cancel
+          </CancelButton>
           <PostButton id="post" onClick={submitForm}>
             {!isLoadingSubmit && "Submit"}
             {isLoadingSubmit && <Spinner animation="border" variant="light" />}

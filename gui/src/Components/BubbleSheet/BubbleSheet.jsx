@@ -39,7 +39,9 @@ const BubbleSheet = ({ submitPost, isLoadingSubmit }) => {
           <HeadStyled>Bubble Sheet</HeadStyled>
         </div>
         <SubmitButtons>
-          <CancelButton variant="light">Cancel</CancelButton>
+          <CancelButton variant="light" onClick={() => setFiles([])}>
+            Cancel
+          </CancelButton>
           <PostButton id="post" onClick={submitForm}>
             {!isLoadingSubmit && "Submit"}
             {isLoadingSubmit && <Spinner animation="border" variant="light" />}
