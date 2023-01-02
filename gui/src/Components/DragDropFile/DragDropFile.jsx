@@ -75,7 +75,7 @@ function DragAndDropFile({ files, setFiles, oneFile }) {
         <input {...getInputProps()} />
         {files.length === 0 && (
           <DragDropParagraph>
-            Drag And drop images or
+            Drag and drop images or
             <UploadButton variant="light" onClick={open}>
               Upload
             </UploadButton>
@@ -93,10 +93,7 @@ function DragAndDropFile({ files, setFiles, oneFile }) {
         )}
       </DragAndDropFrame>
 
-      <PreviewImage
-        selectedImageId={selectedImageId}
-        files={files}
-      />
+      <PreviewImage selectedImageId={selectedImageId} files={files} />
     </div>
   );
 }

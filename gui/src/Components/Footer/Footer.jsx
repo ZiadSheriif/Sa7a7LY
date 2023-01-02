@@ -46,13 +46,13 @@ function Footer() {
           <MDBRow className="mt-3">
             <MDBCol md="3" lg="4" xl="3" className="mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">
-                <MDBIcon icon="gem" className="me-3" />
-                Sa7a7LY Company
+                <MDBIcon icon="gem" className="me-5" />
+                Sa7a7LY App
               </h6>
               <p>
-                Here you can use rows and columns to organize your footer
-                content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                elit.
+                A Grades-autoFiller which converts either a tabular sheet of
+                grades or a bubble sheet to an excel file with corresponding
+                input mapped to answers.
               </p>
             </MDBCol>
 
@@ -93,7 +93,7 @@ function Footer() {
               <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
               <p>
                 <a href="#!" className="text-reset">
-                  Pricing
+                  About
                 </a>
               </p>
               <p>
@@ -103,7 +103,7 @@ function Footer() {
               </p>
               <p>
                 <a href="#!" className="text-reset">
-                  Orders
+                  Documentation
                 </a>
               </p>
               <p>
@@ -113,21 +113,23 @@ function Footer() {
               </p>
             </MDBCol>
 
-            <MDBCol md="4" lg="3" xl="3" className="mx-auto mb-md-0 mb-4">
+            <MDBCol md="4" lg="3" xl="3" className="mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
               <p>
-                <MDBIcon icon="home" className="me-2" />
-                New York, NY 10012, US
+                <MDBIcon icon="home" className="me-0" />
+                Cairo, Egypt
               </p>
               <p>
-                <MDBIcon icon="envelope" className="me-3" />
+                <MDBIcon icon="envelope" className="me-0" />
                 Sa7a7LY@gmail.com
               </p>
               <p>
-                <MDBIcon icon="phone" className="me-3" /> + 01146188908
+                <MDBIcon icon="phone" className="me-0" />
+                +00201146188908
               </p>
               <p>
-                <MDBIcon icon="print" className="me-3" /> + 01 234 567 89
+                <MDBIcon icon="print" className="me-0" />
+                +01 234 567 89
               </p>
             </MDBCol>
           </MDBRow>
@@ -138,7 +140,7 @@ function Footer() {
         className="text-center p-4"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       >
-        © 2023 Copyright:
+        © 2023 Copyright:{" "}
         <a className="text-reset fw-bold" href="https://Sa7a7LY.com/">
           Sa7a7LY.com
         </a>

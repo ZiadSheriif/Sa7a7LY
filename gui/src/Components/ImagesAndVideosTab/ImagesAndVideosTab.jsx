@@ -9,10 +9,13 @@ import { ImagesAndVideosTabContainer } from "./ImagesAndVideosTab.styled";
  * @param {Function} submitPost - Function to submit the post
  * @returns {React.Component} Images and videos Tab component (Images and videos Tab component (Layout) (The tab that contains the images and videos in create post page)
  */
-const ImagesAndVideosTab = ({ submitPost, isLoading }) => {
+const ImagesAndVideosTab = ({ submitPost, isLoadingSubmit }) => {
   return (
     <ImagesAndVideosTabContainer>
-      <ImageAndVideoForm submitPost={submitPost} isLoadingSubmit={isLoading} />
+      <ImageAndVideoForm
+        submitPost={submitPost}
+        isLoadingSubmit={isLoadingSubmit}
+      />
     </ImagesAndVideosTabContainer>
   );
 };

@@ -2,15 +2,13 @@ const express = require("express");
 const { spawn } = require("child_process");
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
 const bodyParser = require("body-parser");
-const AdmZip = require("adm-zip");
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const port = 8000;
+const PORT = 8000;
 
 const options = {
   root: path.join(__dirname),
@@ -69,14 +67,6 @@ app.post("/", (req, res) => {
   ]);
 
   python.on("close", (code) => {
-    try {
-      const zip = new AdmZip();
-      const outputFile = "autoFiller.zip";
-      zip.addLocalFile(path.join(__dirname, "autoFiller.xls"));
-      zip.writeZip(outputFile);
-    } catch (err) {
-      console.log(err.message);
-    }
     res.setHeader("Content-Type", "application/vnd.ms-excel");
     res.sendFile("autoFiller.xls", options, function (err) {
       if (err) {
@@ -92,28 +82,24 @@ app.post("/bubble", (req, res) => {
   const python = spawn("python", ["BubbleSheet/bubbleScript.py"]);
 
   python.on("close", (code) => {
-    try {
-      const zip = new AdmZip();
-      const outputFile = "answers.zip";
-      zip.addLocalFile(path.join(__dirname, "BubbleSheet", "answers.xlsx"));
-      zip.writeZip(outputFile);
-    } catch (err) {
-      console.log(err.message);
-    }
     res.setHeader(
       "Content-Type",
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     );
-    res.sendFile("BubbleSheet/answers.xlsx", options, function (err) {
-      if (err) {
-        console.log(err.message);
-      } else {
-        console.log("Sent");
+    res.sendFile(
+      path.join("BubbleSheet", "answers.xlsx"),
+      options,
+      function (err) {
+        if (err) {
+          console.log(err.message);
+        } else {
+          console.log("Sent");
+        }
       }
-    });
+    );
   });
 });
 
-app.listen(port, () => {
-  console.log(`Started on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Started on port ${PORT}`);
 });

@@ -40,7 +40,7 @@ const ImageAndVideoForm = ({ submitPost, isLoadingSubmit }) => {
       <StyledImageAndVideoFrom>
         <DragAndDropFile files={files} setFiles={setFiles} oneFile={true} />
         <div>
-          <HeadStyled>Auto Filler</HeadStyled>
+          <HeadStyled>Auto-Filler</HeadStyled>
         </div>
         <SubmitButtons>
           <CancelButton variant="light">Cancel</CancelButton>
