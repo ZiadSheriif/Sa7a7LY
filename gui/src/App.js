@@ -45,16 +45,12 @@ function App() {
 
   useEffect(() => {
     if (data) {
-      saveAs(new Blob([data]), "mohey.xls");
-      // var a = document.createElement("a");
-      // a.href = window.URL.createObjectURL(new Blob([data]));
-      // a.download = "test.xls";
-      // a.click();
+      saveAs(new File([data], "autoFiller.zip"), "moheyyAuto.zip");
     }
   }, [data]);
   useEffect(() => {
     if (dataBubble) {
-      saveAs(new Blob([dataBubble]), "mangaa.xls");
+      saveAs(new File([dataBubble], "answers.zip"), "mangaa.zip");
     }
   }, [dataBubble]);
 

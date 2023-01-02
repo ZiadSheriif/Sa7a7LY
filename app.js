@@ -48,6 +48,8 @@ app.use((_req, res, next) => {
     "GET,POST,PUT,DELETE,PATCH,OPTIONS"
   );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  res.setHeader("Content-Type", "application/zip");
+
   next();
 });
 

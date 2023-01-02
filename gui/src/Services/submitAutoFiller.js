@@ -14,6 +14,7 @@ const submitAutoFiller = (dataFetch, post) => {
     url: "/",
     requestConfig: {
       data: post,
+      responseType: "blob",
       headers: {
         "Content-Language": "en-US",
         "Content-Type": "multipart/form-data",

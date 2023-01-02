@@ -31,6 +31,7 @@ const useFetchFunction = () => {
         ...requestConfig,
         signal: ctrl.signal,
       });
+      console.log(res);
       setResponse(res.data);
       setError(null);
     } catch (err) {

@@ -14,6 +14,7 @@ const submitBubble = (dataFetch, post) => {
     url: "/bubble",
     requestConfig: {
       data: post,
+      responseType: "blob",
       headers: {
         "Content-Language": "en-US",
         "Content-Type": "multipart/form-data",
