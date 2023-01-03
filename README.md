@@ -27,7 +27,6 @@
   - [Running ](#running-)
 - [💻 Built Using ](#-built-using-)
 - [📷 Demo Screenshots ](#-demo-screenshots-)
-- [📷 Demo Video ](#-demo-video-)
 - [Contributors ](#contributors-)
 - [License ](#license-)
 
@@ -90,10 +89,11 @@ npm start gui/src/
 <img src="screenshots/screen5.png"></a>
 
 </div>
-## 📷 Demo Video <a name = "video"></a>
+<!-- ## Demo Video <a name = "Video"></a>
 <div align="center">
-
-</div>
+<h3 align='left'>Video</h3>
+   <img src="screenshots/video.mp3">
+</div> -->
 
 ## Contributors <a name = "Contributors"></a>
 
