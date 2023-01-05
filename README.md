@@ -110,16 +110,16 @@ npm start gui/src/
 
 <hr>
 
-## 🎥 Grades-Sheet Demo Video <a name = "demo-videos"></a>
+## 🎥 Demo Videos <a name = "Videos"></a>
 
 <div align="center">
-   <video src="videos/AutoFiller.mp4">
+  <h3 align="left">Grades Sheet</h3>
+  <video src="videos/AutoFiller.mp4">
 </div>
 
-## 🎥 Bubble-Sheet Demo Video
-
 <div align="center">
-   <video src="videos/BubbleSheet.mp4">
+  <h3 align="left">Bubble Sheet</h3>
+  <video src="videos/BubbleSheet.mp4">
 </div>
 
 <hr>
