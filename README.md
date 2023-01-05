@@ -20,6 +20,7 @@
 
 - [📝 Table of Contents](#-table-of-contents)
 - [📙 About ](#-about-)
+- [💡 Explanation ](#-explanation-)
 - [🏁 Getting Started ](#-getting-started-)
   - [Prerequisite ](#prerequisite-)
   - [Installation ](#installation-)
@@ -33,11 +34,28 @@
 
 - A Grades-autoFiller which converts either a tabular sheet of grades or a bubble sheet to an excel file with corresponding input mapped to answers.
 
+## 💡 Explanation <a name = "explanation"></a>
+
+### For the grades sheet:
+
+- Check marks are translated to 5
+- Question marks give a red background in its excel cell
+- A box is mapped to 0 score
+- Stacked vertical lines are written by their count
+- Stacked horizontal lines are written by 5 - their count
+
+#### For the student ID and hand-written numbers
+
+- Two approaches are implemented:
+  1.  Already-made OCR
+  2.  Features + classifier
+- The user chooses which method to convert them by selecting an option from two below uploading the image
+  .
 
 ## 🏁 Getting Started <a name = "get-started"></a>
 
-> This is an list of needed instructions to set up your project locally, to get a local copy up and running follow these
-> instructuins.
+> This is a list of needed instructions to set up your project locally, to get a local copy up and run the below
+> commands.
 
 ### Prerequisite <a name = "req"></a>
 
@@ -48,7 +66,7 @@
 
 ### Installation <a name = "Install"></a>
 
- **_Clone the repository_**
+**_Clone the repository_**
 
 ```sh
 $ git clone https://github.com/ZiadSheriif/Sa7a7LY
@@ -58,12 +76,14 @@ $ git clone https://github.com/ZiadSheriif/Sa7a7LY
 
 **_Running program_**
 
-1. run back-end server
+1. Run back-end server
+
 ```sh
-npm start 
+npm start
 ```
 
-2.  run front-end server
+2.  Run front-end server
+
 ```sh
 npm start gui/src/
 ```
@@ -122,7 +142,6 @@ npm start gui/src/
     <img src="https://avatars.githubusercontent.com/u/75908511?v=4" width="150px;" alt="Ahmed Sabry"/>
     <br />
     <sub><b>Ahmed Sabry</b></sub></a>
-
 
   </tr>
  </table>
