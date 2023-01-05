@@ -114,12 +114,12 @@ npm start gui/src/
 
 <div align="center">
   <h3 align="left">Grades Sheet</h3>
-  <video src="videos/AutoFiller.mp4">
+  https://user-images.githubusercontent.com/67989900/210830413-d749f81a-f7f2-4c77-bbf2-9c021ec3cf7d.mp4
 </div>
 
 <div align="center">
   <h3 align="left">Bubble Sheet</h3>
-  <video src="videos/BubbleSheet.mp4">
+  https://user-images.githubusercontent.com/67989900/210831613-aa5e91df-21ec-4657-973a-5d5a07d31db1.mp4
 </div>
 
 <hr>
