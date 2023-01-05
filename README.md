@@ -116,7 +116,7 @@ npm start gui/src/
    <video src="videos/AutoFiller.mp4">
 </div>
 
-## 🎥 Bubble-Sheet Demo Video <a name = "demo-videos"></a>
+## 🎥 Bubble-Sheet Demo Video
 
 <div align="center">
    <video src="videos/BubbleSheet.mp4">
