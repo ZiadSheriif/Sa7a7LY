@@ -2,14 +2,13 @@
 <div align="center">
 <a href="https://github.com/ZiadSheriif/SA7A7LY" rel="noopener">
 
-<img  src="screenshots/banner3.png"  width="100%"></a>
+<img  src="screenshots/banner3.png"  width="100%" height="400px"></a>
 
 </div>
 
 <div align="center">
  
 [![GitHub contributors](https://img.shields.io/github/contributors/ZiadSheriif/SA7A7LY)](https://github.com/ZiadSheriif/SA7A7LY/contributors)
-[![GitHub issues](https://img.shields.io/github/issues/ZiadSheriif/SA7A7LY)](https://github.com/ZiadSheriif/SA7A7LY/issues)
  [![license](https://img.shields.io/pypi/l/ansicolortags.svg)](LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/ZiadSheriif/SA7A7LY)](https://github.com/ZiadSheriif/SA7A7LY/network)
 [![GitHub stars](https://img.shields.io/github/stars/ZiadSheriif/SA7A7LY)](https://github.com/ZiadSheriif/SA7A7LY/stargazers)
@@ -108,19 +107,19 @@ npm start gui/src/
     </td>
    <td align="center">
     <a href="https://github.com/abdelrahman0123" target="_black">
-    <img src="https://avatars.githubusercontent.com/u/67989900?v=4" width="150px;" alt="Abdelrahman Mohamed"/>
+    <img src="https://avatars.githubusercontent.com/u/67989900?v=4" width="150px;" alt="Abdelrahman Hamdy"/>
     <br />
     <sub><b>Abdelrahman Hamdy</b></sub></a>
     </td>
     <td align="center">
     <a href="https://github.com/Abd-ELrahmanHamza" target="_black">
-    <img src="https://avatars.githubusercontent.com/u/68310502?v=4" width="150px;" alt="Abdelrahman Mohamed"/>
+    <img src="https://avatars.githubusercontent.com/u/68310502?v=4" width="150px;" alt="Abdelrahman Hamza"/>
     <br />
-    <sub><b>Abdelrahman Mohamed</b></sub></a>
+    <sub><b>Abdelrahman Hamza</b></sub></a>
     </td>
    <td align="center">
     <a href="https://github.com/Ahmedsabry11" target="_black">
-    <img src="https://avatars.githubusercontent.com/u/75908511?v=4" width="150px;" alt="Abdelrahman Mohamed"/>
+    <img src="https://avatars.githubusercontent.com/u/75908511?v=4" width="150px;" alt="Ahmed Sabry"/>
     <br />
     <sub><b>Ahmed Sabry</b></sub></a>
 
