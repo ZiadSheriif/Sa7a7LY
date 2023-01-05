@@ -8,11 +8,11 @@
 
 <div align="center">
  
-[![GitHub contributors](https://img.shields.io/github/contributors/ZiadSheriif/SA7A7LY)](https://github.com/ZiadSheriif/SA7A7LY/contributors)
+[![GitHub contributors](https://img.shields.io/github/contributors/ZiadSheriif/SA7A7LY)](https://github.com/ZiadSheriif/Sa7a7LY/contributors)
  [![license](https://img.shields.io/pypi/l/ansicolortags.svg)](LICENSE)
-[![GitHub forks](https://img.shields.io/github/forks/ZiadSheriif/SA7A7LY)](https://github.com/ZiadSheriif/SA7A7LY/network)
-[![GitHub stars](https://img.shields.io/github/stars/ZiadSheriif/SA7A7LY)](https://github.com/ZiadSheriif/SA7A7LY/stargazers)
-[![GitHub Language](https://img.shields.io/github/languages/top/ZiadSheriif/SA7A7LY)](https://img.shields.io/github/languages/count/ZiadSheriif/SA7A7LY)
+[![GitHub forks](https://img.shields.io/github/forks/ZiadSheriif/Sa7a7LY)](https://github.com/ZiadSheriif/Sa7a7LY/network)
+[![GitHub stars](https://img.shields.io/github/stars/ZiadSheriif/Sa7a7LY)](https://github.com/ZiadSheriif/Sa7a7LY/stargazers)
+[![GitHub Language](https://img.shields.io/github/languages/top/ZiadSheriif/Sa7a7LY)](https://img.shields.io/github/languages/count/ZiadSheriif/Sa7a7LY)
 
 </div>
 
@@ -27,6 +27,7 @@
   - [Running ](#running-)
 - [💻 Built Using ](#-built-using-)
 - [📷 Demo Screenshots ](#-demo-screenshots-)
+- [🎥 Demo Videos ](#-demo-videos-)
 - [Contributors ](#contributors-)
 - [License ](#license-)
 
@@ -49,8 +50,7 @@
 - Two approaches are implemented:
   1.  Already-made OCR
   2.  Features + classifier
-- The user chooses which method to convert them by selecting an option from two below uploading the image
-  .
+- The user chooses which method to convert them by selecting an option from two below uploading the image.
 
 ## 🏁 Getting Started <a name = "get-started"></a>
 
@@ -106,13 +106,23 @@ npm start gui/src/
 <img src="screenshots/screen4.png"></a>
 <h3 align='left'>Preview bubble sheet</h3>
 <img src="screenshots/screen5.png"></a>
-
 </div>
-<!-- ## Demo Video <a name = "Video"></a>
+
+<hr>
+
+## 🎥 Grades-Sheet Demo Video <a name = "demo-videos"></a>
+
 <div align="center">
-<h3 align='left'>Video</h3>
-   <img src="screenshots/video.mp3">
-</div> -->
+   <video src="videos/AutoFiller.mp4">
+</div>
+
+## 🎥 Bubble-Sheet Demo Video <a name = "demo-videos"></a>
+
+<div align="center">
+   <video src="videos/BubbleSheet.mp4">
+</div>
+
+<hr>
 
 ## Contributors <a name = "Contributors"></a>
 
