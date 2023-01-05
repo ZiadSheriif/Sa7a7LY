@@ -2,7 +2,7 @@
 <div align="center">
 <a href="https://github.com/ZiadSheriif/SA7A7LY" rel="noopener">
 
-<img  src="screenshots/banner.jpg"  width="100%"></a>
+<img  src="screenshots/banner3.png"  width="100%"></a>
 
 </div>
 

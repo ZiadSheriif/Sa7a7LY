@@ -54,6 +54,9 @@ function App() {
     }
   }, [dataBubble]);
 
+  useEffect(() => {
+    document.title = "SA7A7LY";
+  }, []);
   return (
     <div className="App">
       <ThemeProvider theme={lightTheme}>
