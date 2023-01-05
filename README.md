@@ -22,7 +22,7 @@
 - [📙 About ](#-about-)
 - [💡 Explanation ](#-explanation-)
 - [🏁 Getting Started ](#-getting-started-)
-  - [Prerequisite ](#prerequisite-)
+  - [Prerequisites ](#prerequisites-)
   - [Installation ](#installation-)
   - [Running ](#running-)
 - [💻 Built Using ](#-built-using-)
@@ -57,7 +57,7 @@
 > This is a list of needed instructions to set up your project locally, to get a local copy up and run the below
 > commands.
 
-### Prerequisite <a name = "req"></a>
+### Prerequisites <a name = "req"></a>
 
 1. python 3.9.2
 2. pytesseract
@@ -112,15 +112,11 @@ npm start gui/src/
 
 ## 🎥 Demo Videos <a name = "Videos"></a>
 
-<div align="center">
-  <h3 align="left">Grades Sheet</h3>
-  https://user-images.githubusercontent.com/67989900/210830413-d749f81a-f7f2-4c77-bbf2-9c021ec3cf7d.mp4
-</div>
+<h3 align="left">Grades Sheet</h3>
+https://user-images.githubusercontent.com/67989900/210830413-d749f81a-f7f2-4c77-bbf2-9c021ec3cf7d.mp4
 
-<div align="center">
-  <h3 align="left">Bubble Sheet</h3>
-  https://user-images.githubusercontent.com/67989900/210831613-aa5e91df-21ec-4657-973a-5d5a07d31db1.mp4
-</div>
+<h3 align="left">Bubble Sheet</h3>
+https://user-images.githubusercontent.com/67989900/210831613-aa5e91df-21ec-4657-973a-5d5a07d31db1.mp4
 
 <hr>
 
