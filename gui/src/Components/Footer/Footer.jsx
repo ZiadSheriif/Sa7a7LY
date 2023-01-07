@@ -73,10 +73,10 @@ function Footer() {
               </p>
               <p>
                 <a
-                  href="https://github.com/abdelrahman0123"
+                  href="https://github.com/AbdelrahmanHamdyy"
                   className="text-reset"
                 >
-                  abdelrahman0123
+                  AbdelrahmanHamdyy
                 </a>
               </p>
               <p>
