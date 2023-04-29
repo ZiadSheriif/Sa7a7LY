@@ -2,7 +2,7 @@
 <div align="center">
 <a href="https://github.com/ZiadSheriif/SA7A7LY" rel="noopener">
 
-<img  src="screenshots/banner3.png"  width="100%" height="400px"></a>
+<img  src="media/images/banner3.png"  width="100%" height="400px"></a>
 
 </div>
 
@@ -21,6 +21,8 @@
 - [📝 Table of Contents](#-table-of-contents)
 - [📙 About ](#-about-)
 - [💡 Explanation ](#-explanation-)
+  - [For the grades sheet:](#for-the-grades-sheet)
+    - [For the student ID and hand-written numbers](#for-the-student-id-and-hand-written-numbers)
 - [🏁 Getting Started ](#-getting-started-)
   - [Prerequisites ](#prerequisites-)
   - [Installation ](#installation-)
@@ -28,8 +30,8 @@
 - [💻 Built Using ](#-built-using-)
 - [📷 Demo Screenshots ](#-demo-screenshots-)
 - [🎥 Demo Videos ](#-demo-videos-)
-- [Contributors ](#contributors-)
-- [License ](#license-)
+- [🕴 Contributors ](#-contributors-)
+- [📃 License ](#-license-)
 
 ## 📙 About <a name = "about"></a>
 
@@ -66,47 +68,51 @@
 
 ### Installation <a name = "Install"></a>
 
-**_Clone the repository_**
+1. **_Clone the repository_**
 
 ```sh
-$ git clone https://github.com/ZiadSheriif/Sa7a7LY
+ git clone https://github.com/ZiadSheriif/Sa7a7LY
+```
+2. **_Navigate to Sa7a7LY Folder_**
+```sh
+cd Sa7a7LY
 ```
 
 ### Running <a name = "running"></a>
 
 **_Running program_**
+1. install modules
+```sh
+npm install
+```
 
-1. Run back-end server
+2. Run back-end server
 
 ```sh
 npm start
 ```
 
-2.  Run front-end server
-
-```sh
-npm start gui/src/
-```
+3.  Run front-end server
+   
+  ```sh
+  npm start gui/src/
+  ```
 
 ## 💻 Built Using <a name = "tech"></a>
 
 - **Python**
+- **NodeJs**
+- **ReactJs**
 
 ## 📷 Demo Screenshots <a name = "Screenshots"></a>
 
 <div align="center">
 <h3 align='left'>Main Screen</h3>
-   <img src="screenshots/screen1.png">
-<h3 align='left'>Auto-Filler</h3>
-   <img  src="screenshots/screen2.png"></a>
-
-<h3 align='left'>Bubble Sheet</h3>
-<img src="screenshots/screen3.png"></a>
-<h3 align='left'>Preview auto filler</h3>
-<img src="screenshots/screen4.png"></a>
-<h3 align='left'>Preview bubble sheet</h3>
-<img src="screenshots/screen5.png"></a>
-</div>
+   <img src="media/images/screen1.png">
+ <h3 align='left'>Input Auto-Filler</h3>
+<img src="media/images/input.jpg"></a>
+<h3 align='left'>Output Auto-Filler</h3>
+<img src="media/images/excel.png"></a>
 
 <hr>
 
@@ -114,15 +120,15 @@ npm start gui/src/
 
 <h3 align="left">Grades Sheet</h3>
 
-https://user-images.githubusercontent.com/67989900/210830413-d749f81a-f7f2-4c77-bbf2-9c021ec3cf7d.mp4
+![autoFiller](media/videos/auto-filler.gif)
 
 <h3 align="left">Bubble Sheet</h3>
 
-https://user-images.githubusercontent.com/67989900/210831613-aa5e91df-21ec-4657-973a-5d5a07d31db1.mp4
+![bubblesheet](media/videos/bubble.gif)
 
 <hr>
 
-## Contributors <a name = "Contributors"></a>
+## 🕴 Contributors <a name = "Contributors"></a>
 
 <table>
   <tr>
@@ -154,6 +160,6 @@ https://user-images.githubusercontent.com/67989900/210831613-aa5e91df-21ec-4657-
   </tr>
  </table>
 
-## License <a name = "license"></a>
+## 📃 License <a name = "license"></a>
 
 > This software is licensed under MIT License, See [License](https://github.com/ZiadSheriif/SA7A7LY/blob/main/LICENSE) for more information ©ZiadSheriif.
