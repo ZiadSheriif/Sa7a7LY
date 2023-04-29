@@ -90,13 +90,13 @@ cd Sa7a7LY
 npm install
 ```
 
-1. Run back-end 
+2. Run back-end 
 
 ```sh
 npm start
 ```
 
-1.  Run front-end 
+3.  Run front-end 
    
   ```sh
   npm start gui/src
