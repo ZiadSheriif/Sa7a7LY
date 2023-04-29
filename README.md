@@ -63,8 +63,12 @@
 
 1. python 3.9.2
 2. pytesseract
-3. React JS
-4. Node JS
+3. OpenCv
+4. matplotlib
+5. numpy
+6. PTL
+7. ReactJs
+8. NodeJs
 
 ### Installation <a name = "Install"></a>
 
@@ -81,21 +85,21 @@ cd Sa7a7LY
 ### Running <a name = "running"></a>
 
 **_Running program_**
-1. install modules
+   1. Install modules
 ```sh
 npm install
 ```
 
-2. Run back-end server
+1. Run back-end 
 
 ```sh
 npm start
 ```
 
-3.  Run front-end server
+1.  Run front-end 
    
   ```sh
-  npm start gui/src/
+  npm start gui/src
   ```
 
 ## 💻 Built Using <a name = "tech"></a>
@@ -113,10 +117,12 @@ npm start
 <img src="media/images/input.jpg"></a>
 <h3 align='left'>Output Auto-Filler</h3>
 <img src="media/images/excel.png"></a>
-
+</div>
 <hr>
 
 ## 🎥 Demo Videos <a name = "Videos"></a>
+
+<div align="center">
 
 <h3 align="left">Grades Sheet</h3>
 
@@ -125,41 +131,41 @@ npm start
 <h3 align="left">Bubble Sheet</h3>
 
 ![bubblesheet](media/videos/bubble.gif)
-
+</div>
 <hr>
 
-## 🕴 Contributors <a name = "Contributors"></a>
+## 🕴 Contributors <a name = "Contributors" ></a>
 
 <table>
-  <tr>
-    </td>
-    <td align="center">
-    <a href="https://github.com/ZiadSheriif" target="_black">
-    <img src="https://avatars.githubusercontent.com/u/78238570?v=4" width="150px;" alt="Ziad Sherif"/>
-    <br />
-    <sub><b>Ziad Sherif</b></sub></a>
-    </td>
-   <td align="center">
-    <a href="https://github.com/AbdelrahmanHamdyy" target="_black">
-    <img src="https://avatars.githubusercontent.com/u/67989900?v=4" width="150px;" alt="Abdelrahman Hamdy"/>
-    <br />
-    <sub><b>Abdelrahman Hamdy</b></sub></a>
-    </td>
-    <td align="center">
-    <a href="https://github.com/Abd-ELrahmanHamza" target="_black">
-    <img src="https://avatars.githubusercontent.com/u/68310502?v=4" width="150px;" alt="Abdelrahman Hamza"/>
-    <br />
-    <sub><b>Abdelrahman Hamza</b></sub></a>
-    </td>
-   <td align="center">
-    <a href="https://github.com/Ahmedsabry11" target="_black">
-    <img src="https://avatars.githubusercontent.com/u/75908511?v=4" width="150px;" alt="Ahmed Sabry"/>
-    <br />
-    <sub><b>Ahmed Sabry</b></sub></a>
+<tr>
+  </td>
+  <td align="center">
+  <a href="https://github.com/ZiadSheriif" target="_black">
+  <img src="https://avatars.githubusercontent.com/u/78238570?v=4" width="150px;" alt="Ziad Sherif"/>
+  <br />
+  <sub><b>Ziad Sherif</b></sub></a>
+  </td>
+ <td align="center">
+  <a href="https://github.com/AbdelrahmanHamdyy" target="_black">
+  <img src="https://avatars.githubusercontent.com/u/67989900?v=4" width="150px;" alt="Abdelrahman Hamdy"/>
+  <br />
+  <sub><b>Abdelrahman Hamdy</b></sub></a>
+  </td>
+  <td align="center">
+  <a href="https://github.com/Abd-ELrahmanHamza" target="_black">
+  <img src="https://avatars.githubusercontent.com/u/68310502?v=4" width="150px;" alt="Abdelrahman Hamza"/>
+  <br />
+  <sub><b>Abdelrahman Hamza</b></sub></a>
+  </td>
+ <td align="center">
+  <a href="https://github.com/Ahmedsabry11" target="_black">
+  <img src="https://avatars.githubusercontent.com/u/75908511?v=4" width="150px;" alt="Ahmed Sabry"/>
+  <br />
+  <sub><b>Ahmed Sabry</b></sub></a>
 
-  </tr>
+</tr>
  </table>
 
 ## 📃 License <a name = "license"></a>
 
-> This software is licensed under MIT License, See [License](https://github.com/ZiadSheriif/SA7A7LY/blob/main/LICENSE) for more information ©ZiadSheriif.
+> This software is licensed under MIT License, See [License](https://github.com/ZiadSheriif/SA7A7LY/blob/main/LICENSE) for more information @SA7A7LY.
